@@ -1,5 +1,7 @@
 keyboard falling blocks (KFB) manual.
 
+Play on "Google Chrome on full screen"
+
 BETA TESTING
 
 =====

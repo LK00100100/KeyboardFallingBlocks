@@ -1,7 +1,7 @@
 #gamecontainer {
 	width:640px;
 	height:640px;
-	background: url(images/splashscreen.png);
+	background: url(../images/splashScreen.png);
 	border: 1px solid black;
 }
 
@@ -106,7 +106,7 @@
 
 /* Game Interface Screen */
 #gameinterfacescreen {
-    background: url(images/maininterface.png) no-repeat;
+    background: url(../images/mainInterface.png) no-repeat;
 }
 
 #gameinterfacescreen #gamemessages{

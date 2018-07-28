@@ -4,12 +4,12 @@
 
 var pieceFactory = {
 
-    pieces:[null, pieceI, pieceJ, pieceL, pieceO, pieceS, pieceT, pieceZ],
+    pieces: [null, pieceI, pieceJ, pieceL, pieceO, pieceS, pieceT, pieceZ],
 
-    generateRandomPieceSizeFour:function(){
+    generateRandomPieceSizeFour: function () {
 
         //randomly pick a piece
-        var rand =  Math.floor((Math.random() * (this.pieces.length - 1)) + 1);
+        var rand = Math.floor((Math.random() * (this.pieces.length - 1)) + 1);
 
         //make a new piece and return that
         var pieceTemp = $.extend({}, this.pieces[rand]);

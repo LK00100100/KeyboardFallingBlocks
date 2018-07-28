@@ -4,19 +4,19 @@
 
 var pieceS = {
 
-    id:-1,
-    pieceType:"PieceS",
+    id: -1,
+    pieceType: "PieceS",
 
-    rowSize:2,
-    colSize:3,
+    rowSize: 2,
+    colSize: 3,
 
-    rotations:2,
-    currentRotation:1,
+    rotations: 2,
+    currentRotation: 1,
 
-    init:function(){
+    init: function () {
         //the new rotated space matrix.
         this.space = new Array(this.rowSize);
-        for(var i = 0; i < this.rowSize; i++)
+        for (var i = 0; i < this.rowSize; i++)
             this.space[i] = new Array(this.colSize);
 
         this.clearSpace();
@@ -34,11 +34,11 @@ var pieceS = {
      * rotate clockwise once.
      * and shift the piece on a pivot point.
      */
-    rotate:function(){
+    rotate: function () {
         this.rotateA();
 
         //shift on a pivot
-        switch(this.currentRotation){
+        switch (this.currentRotation) {
             case 1:
                 this.row += 1;
                 this.col -= 1;
@@ -55,11 +55,11 @@ var pieceS = {
      * rotate counter clockwise once.
      * and shift the piece on a pivot point.
      */
-    rotateCounterClockwise:function(){
+    rotateCounterClockwise: function () {
         this.rotateCounterClockwiseA();
 
         //shift on a pivot
-        switch(this.currentRotation){
+        switch (this.currentRotation) {
             case 1:
                 this.row += 1;
                 this.col -= 1;
@@ -71,7 +71,7 @@ var pieceS = {
         }
 
     },
-    printPieceType:function() {
+    printPieceType: function () {
         console.log("S");
     }
 };

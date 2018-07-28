@@ -4,8 +4,8 @@
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 		<title>Keyboard Falling Blocks</title>
 
-		<!-- note: order matters -->
-		<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<!-- note: order of loading matters -->
+		<script src="js/libs/jquery.min.js" type="text/javascript" charset="utf-8"></script>
 
 		<!-- Definitions for pieces -->
 		<script src="js/pieces/piece.js" type="text/javascript" charset="utf-8"></script>
@@ -21,32 +21,25 @@
 		<!-- Game Engine-->
 		<script src="js/common.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/game.js" type="text/javascript" charset="utf-8"></script>
-		<script src="js/sounds.js" type="text/javascript" charset="utf-8"></script>
-
-		<script src="js/keyboard.js" type="text/javascript" charset="utf-8"></script>
-
+		<script src="js/audio/sounds.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/input/keyboard.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/singleplayer.js" type="text/javascript" charset="utf-8"></script>
-		<script src="js/multiplayer.js" type="text/javascript" charset="utf-8"></script>
 
-		<link rel="stylesheet" href="styles.css" type="text/css" media="screen" charset="utf-8">
+		<link rel="stylesheet" href="css/styles.css" type="text/css" media="screen" charset="utf-8">
 	</head>
 	<body>
-	    <div id="gamecontainer">
+	    <div id="gamecontainer" >
 			<div id="namescreen" class="gamelayer">
 	        </div>
 			<div id="mainscreen" class="gamelayer">
-				<span id="singleplayer" onclick = "singleplayer.start();">100 Lines</span>
-				<span id="multiplayer" onclick = "multiplayer.start();">Multi</span>
+				<span id="singleplayer" onclick = "singleplayer.start();">10 Lines</span>
+
 			</div>
 			
 			<div id="singleplayerscreen" class="gamelayer">
 	          
 	        </div>
-			
-			<div id="multiplayerscreen" class="gamelayer">
-	            
-	        </div>
-			
+
 			<div id="aboutscreen" class="gamelayer">
 	            
 	        </div>
@@ -59,36 +52,15 @@
 
 				<div id="keyAssist">To-Be-Replaced</div>
 
-				<!--
-			    <div id="sidebarbuttons">
-			        <input type="button" id="starportbutton" title = "Starport">
-			    </div>
-			    -->
-
 			    <canvas id="gamebackgroundcanvas" height="640" width="640"></canvas>
 			    <canvas id="gameforegroundcanvas" height="640" width="640"></canvas>
 			    <input type="text" id="chatmessage">
 			</div>
 
-			<div id="messageboxscreen" class="gamelayer">
-	            <div id="messagebox">
-	                <span id="messageboxtext"></span>
-	                <input type="button" id="messageboxok" onclick="game.messageBoxOK();">
-	                <input type="button" id="messageboxcancel" onclick="game.messageBoxCancel();">
-	            </div>
-	        </div>
-
 	        <div id="loadingscreen" class="gamelayer">
 	            <div id="loadingmessage"></div>
 	        </div>
-			
-			
-			<div id="multiplayerlobbyscreen" class="gamelayer">
-			    <select id="multiplayergameslist" size="10">
-			    </select>
-			    <input type="button" id="multiplayerjoin" onclick="multiplayer.join();">
-			    <input type="button" id="multiplayercancel" onclick="multiplayer.cancel();">
-			</div>
+
 	    </div>
 		<br>( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°) 
 		<br>welcome to the KEYBOARD FALLING BLOCKS beta.

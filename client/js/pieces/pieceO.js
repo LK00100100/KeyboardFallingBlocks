@@ -4,19 +4,19 @@
 
 var pieceO = {
 
-    id:-1,
-    pieceType:"PieceO",
+    id: -1,
+    pieceType: "PieceO",
 
-    rowSize:2,
-    colSize:2,
+    rowSize: 2,
+    colSize: 2,
 
-    rotations:1,
-    currentRotation:1,
+    rotations: 1,
+    currentRotation: 1,
 
-    init:function(){
+    init: function () {
         //the new rotated space matrix.
         this.space = new Array(this.rowSize);
-        for(var i = 0; i < this.rowSize; i++)
+        for (var i = 0; i < this.rowSize; i++)
             this.space[i] = new Array(this.colSize);
 
         this.clearSpace();
@@ -34,7 +34,7 @@ var pieceO = {
      * rotate clockwise once.
      * and shift the piece on a pivot point.
      */
-    rotate:function(){
+    rotate: function () {
         //do nothing
     },
 
@@ -42,10 +42,10 @@ var pieceO = {
      * rotate counter clockwise once.
      * and shift the piece on a pivot point.
      */
-    rotateCounterClockwise:function(){
+    rotateCounterClockwise: function () {
         //do nothing
     },
-    printPieceType:function() {
+    printPieceType: function () {
         console.log("O");
     }
 };

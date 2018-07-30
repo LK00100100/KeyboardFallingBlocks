@@ -35,7 +35,7 @@ var pieceS = {
      * and shift the piece on a pivot point.
      */
     rotate: function () {
-        this.rotateA();
+        this.rotatePiece();
 
         //shift on a pivot
         switch (this.currentRotation) {
@@ -56,7 +56,7 @@ var pieceS = {
      * and shift the piece on a pivot point.
      */
     rotateCounterClockwise: function () {
-        this.rotateCounterClockwiseA();
+        this.rotateCounterClockwisePiece();
 
         //shift on a pivot
         switch (this.currentRotation) {

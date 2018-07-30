@@ -4,6 +4,8 @@
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 		<title>Keyboard Falling Blocks</title>
 
+		<link rel="stylesheet" href="css/styles.css" type="text/css" media="screen" charset="utf-8">
+
 		<!-- note: order of loading matters -->
 		<script src="js/libs/jquery.min.js" type="text/javascript" charset="utf-8"></script>
 
@@ -25,20 +27,14 @@
 		<script src="js/input/keyboard.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/singleplayer.js" type="text/javascript" charset="utf-8"></script>
 
-		<link rel="stylesheet" href="css/styles.css" type="text/css" media="screen" charset="utf-8">
 	</head>
 	<body>
 	    <div id="gamecontainer" >
-			<div id="namescreen" class="gamelayer">
-	        </div>
-			<div id="mainscreen" class="gamelayer">
-				<span id="singleplayer" onclick = "singleplayer.start();">10 Lines</span>
 
+			<div id="mainscreen" class="gamelayer">
+				<span id="singleplayer10" onclick = "singleplayer.start10Lines();">10 Lines</span>
+				<span id="singleplayer100" onclick = "singleplayer.start100Lines();">100 Lines</span>
 			</div>
-			
-			<div id="singleplayerscreen" class="gamelayer">
-	          
-	        </div>
 
 			<div id="aboutscreen" class="gamelayer">
 	            
@@ -54,6 +50,7 @@
 
 			    <canvas id="gamebackgroundcanvas" height="640" width="640"></canvas>
 			    <canvas id="gameforegroundcanvas" height="640" width="640"></canvas>
+
 			    <input type="text" id="chatmessage">
 			</div>
 

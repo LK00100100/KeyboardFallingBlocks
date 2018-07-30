@@ -45,6 +45,7 @@ var pieceO = {
     rotateCounterClockwise: function () {
         //do nothing
     },
+
     printPieceType: function () {
         console.log("O");
     }

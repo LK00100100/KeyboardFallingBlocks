@@ -39,7 +39,7 @@ var piece = {
      * rotate clockwise once.
      * updates space[][], row, col.
      */
-    rotateA: function () {
+    rotatePiece: function () {
         if (this.currentRotation == this.rotations)
             this.currentRotation = 1;
         else
@@ -76,7 +76,7 @@ var piece = {
      * rotate counter clockwise once.
      * updates space[][], row, col.
      */
-    rotateCounterClockwiseA: function () {
+    rotateCounterClockwisePiece: function () {
         if (this.currentRotation == 1)
             this.currentRotation = this.rotations;
         else
@@ -134,7 +134,6 @@ var piece = {
                     return false;
                 if (this.space[i][j] != 0 && theSpace[i][j] == 0)
                     return false;
-
 
             }
         }

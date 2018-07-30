@@ -5,26 +5,31 @@
 
 var singleplayer = {
 
-    // Begin single player game
-    start: function () {
-
-        // Hide the starting menu layer
-        $('.gamelayer').hide();
-
-        game.type = "singleplayer";
-
-        // Finally start the level
-        singleplayer.start100Lines();
-
-    },
     exit: function () {
         // go back to the main screen
         $('.gamelayer').hide();
         $('#mainscreen').show();
     },
 
+    start10Lines: function () {
+        game.LINES_TO_WIN = 10;
+
+        this.initStart();
+    },
 
     start100Lines: function () {
+        game.LINES_TO_WIN = 100;
+
+        this.initStart();
+    },
+
+    // Begin single player game
+    initStart: function () {
+
+        // Hide the starting menu layer
+        $('.gamelayer').hide();
+
+        game.type = "singleplayer";
 
         game.resetGame();
 
@@ -34,8 +39,8 @@ var singleplayer = {
 
         //then draw the sprites (whenever you can)
         game.start();
-
     },
+
     //game's end() calls this.
     endGame: function () {
         game.running = false;

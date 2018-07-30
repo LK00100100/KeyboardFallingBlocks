@@ -12,41 +12,40 @@ $(window).load(function () {
 
 var game = {
 
-    //TIMING INFO (FINAL)
-    FPS: 30,
-    SPF: -1,					//30 frames per second
+    //TIMING INFO
+    FPS: 30,                //30 frames per second
     currentTick: 0,
     tickTimePieceDrop: 0,	//drop timer counter
     pieceDropTick: 0,		//dropping threshold.
     animationTimeout: -1, 	// 100 = 100 milliseconds or 10 times a second, i set it to 30 SPF
 
-    //DRAWING INFO (FINAL)
-    DRAW_BOARD_X: 175,
-    DRAW_BOARD_Y: 0,
-    DRAW_BOARD_TOP_DRAWABLE_ROW: 0,	//the first row (top) we draw from.
+    //DRAWING INFO
     BLOCK_WIDTH: 25,
     CURRENTPIECE_X: -1,
     CURRENTPIECE_Y: -1,
+    DRAW_BOARD_X: 175,
+    DRAW_BOARD_Y: 0,
+    DRAW_BOARD_TOP_DRAWABLE_ROW: 0,	//the first row (top) we draw from.
     DRAW_LINES_CLEARED_X: 215,
     DRAW_LINES_CLEARED_Y: 280,
     DRAW_GAME_TIMER_X: 215,
     DRAW_GAME_TIMER_Y: 340,
     DRAW_LEVEL_X: 215,
     DRAW_LEVEL_Y: 400,
-    DRAW_NEXTPIECE_X: 510,	//TODO fix this crap, makes no sense. flip x and y
+    DRAW_NEXTPIECE_X: 510,
     DRAW_NEXTPIECE_Y: 50,
     DRAW_NEXTPIECE_Y_GAP: 80,
     DRAW_HOLDPIECE_X: 30,
     DRAW_HOLDPIECE_Y: 60,
 
-    //GAME INFO (FINAL)
+    //GAME INFO
     BOARD_ROWS: 25,			//total rows, including invisible ceiling. 0 is the top
     BOARD_CEILING_ROWS: 5,	//number of invisible ceiling rows
     BOARD_COLS: 10,
     START_ROW: 0,			//current piece's start area
     START_COL: 3,
     LINES_TO_LEVEL_UP: 10,
-    LINES_TO_WIN: 10,		//TODO set this to 100
+    LINES_TO_WIN: -1,
     LINES_CLEARED_LIMIT: 9999,
     GAME_OVER_ROW: 4,		//stuff filled in this row[x] is bad
     NEXT_PIECES_MAXSIZE: 7,
@@ -95,8 +94,9 @@ var game = {
         game.CURRENTPIECE_X = game.DRAW_BOARD_X + (game.BLOCK_WIDTH * 11);
         game.CURRENTPIECE_Y = game.BLOCK_WIDTH / 2;
 
-        game.SPF = 1000 / game.FPS;
-        game.animationTimeout = game.SPF;
+        //seconds per frame
+        var SPF = 1000 / game.FPS;
+        game.animationTimeout = SPF;
 
     },
     start: function () {
@@ -108,8 +108,7 @@ var game = {
             "1 2 3 4 5 6 7 8 9 0<br>" +
             "Q W E R T Y U I O P<br>" +
             "A S D F G H J K L ;<br>" +
-            "Z X C V B N M , . /");
-        $('#keyAssist').show();
+            "Z X C V B N M , . /").show();
 
         game.running = true;
         game.refreshBackground = true;
@@ -168,6 +167,9 @@ var game = {
         //}
 
     },
+
+
+    //TODO, move this out to another function.
     //draws the sprites onto the game.
     drawingLoop: function () {
         //the background is drawn once by default
@@ -179,7 +181,8 @@ var game = {
 
         //TODO only redraw the board if there's change
 
-        //draw the board (and current piece) (start drawing from the top-drawing row, the visible ceiling)
+        // draw the board (empty and current piece)
+        // (start drawing from the top-drawing row, the visible ceiling)
         for (var row = game.DRAW_BOARD_TOP_DRAWABLE_ROW; row < game.BOARD_ROWS; row++) {
             y = game.DRAW_BOARD_Y + ((row - game.DRAW_BOARD_TOP_DRAWABLE_ROW) * game.BLOCK_WIDTH);
 
@@ -187,18 +190,20 @@ var game = {
 
                 x = game.DRAW_BOARD_X + (col * game.BLOCK_WIDTH);
 
+                //draw an empty block
                 if (game.board[row][col] == 0) {
                     //empty border
                     //game.foregroundContext.fillStyle = "#FF0000";	//red
                     //game.foregroundContext.fillRect(x, y, game.BLOCK_WIDTH, game.BLOCK_WIDTH);
-                    game.foregroundContext.strokeStyle = "#000000";	//black border
+                    game.foregroundContext.strokeStyle = "#00ff00";	//black border
                     game.foregroundContext.lineWidth = 1;
                     game.foregroundContext.strokeRect(x, y, game.BLOCK_WIDTH, game.BLOCK_WIDTH);
                 }
+                //draw a block
                 else {
-                    game.foregroundContext.fillStyle = "#FF0000";	//
+                    game.foregroundContext.fillStyle = "#00aa00";	//
                     game.foregroundContext.fillRect(x, y, game.BLOCK_WIDTH, game.BLOCK_WIDTH);
-                    game.foregroundContext.strokeStyle = "#000000";	//black border
+                    game.foregroundContext.strokeStyle = "#00ff00";	//black border
                     game.foregroundContext.lineWidth = 1;
                     game.foregroundContext.strokeRect(x, y, game.BLOCK_WIDTH, game.BLOCK_WIDTH);
                 }
@@ -211,7 +216,7 @@ var game = {
         game.foregroundContext.moveTo(game.DRAW_BOARD_X, y);
         x = game.DRAW_BOARD_X + (game.BOARD_COLS * game.BLOCK_WIDTH);
         game.foregroundContext.lineTo(x, y);
-        game.foregroundContext.lineWidth = 3;
+        game.foregroundContext.lineWidth = 4;
         game.foregroundContext.strokeStyle = '#ff0000';
         game.foregroundContext.stroke();
 
@@ -241,7 +246,7 @@ var game = {
 
         //draw holding piece
         if (game.holdPiece) {
-            game.foregroundContext.fillStyle = "#FF0000";
+            game.foregroundContext.fillStyle = "#00ff00";
             game.foregroundContext.strokeStyle = "#000000";	//black border
             game.foregroundContext.lineWidth = 1;
 
@@ -269,7 +274,7 @@ var game = {
 
         //draw next pieces
         var tempPiece;
-        game.foregroundContext.fillStyle = "#FF0000";
+        game.foregroundContext.fillStyle = "#00ff00";
         game.foregroundContext.strokeStyle = "#000000";	//black border
         game.foregroundContext.lineWidth = 1;
         for (var i = 0; i < game.nextPieces.length; i++) {
@@ -312,10 +317,10 @@ var game = {
 
     },
 
-    //note: if get 100 lines and die on the same frame, it's a victory.
+    //note: if get a certain amount of lines and die on the same frame, it's a victory.
     isGameOver: function () {
 
-        //reached 100 lines
+        //cleared enough lines
         if (game.linesCleared >= game.LINES_TO_WIN)
             return true;
 
@@ -329,113 +334,10 @@ var game = {
 
     },
 
-    // Send command to either singleplayer or multiplayer object
-    sendCommand: function (uids, details) {
-
-        //TODO fix this?
-        if (game.type == "singleplayer") {
-            singleplayer.sendCommand(uids, details);
-        } else {
-            multiplayer.sendCommand(uids, details);
-        }
-    },
-
-    // Receive command from singleplayer or multiplayer object and send it to units
-    processCommand: function (uids, details) {
-
-
-
-        //TODO getItemByUid has been deleted. don't need it.
-
-
-        // In case the target "to" object is in terms of uid, fetch the target object
-        /*
-         var toObject;
-         if (details.toUid){
-         toObject = game.getItemByUid(details.toUid);
-         if(!toObject || toObject.lifeCode=="dead"){
-         // To object no longer exists. Invalid command
-         return;
-         }
-         }
-
-         for (var i in uids){
-         var uid = uids[i];
-         var item = game.getItemByUid(uid);
-         //if uid is a valid item, set the order for the item
-         if(item){
-         item.orders = $.extend([],details);
-         if(toObject) {
-         item.orders.to = toObject;
-         }
-         }
-         };
-
-         */
-
-    },
-    showMessage: function (from, message) {
-        sounds.play('message-received');
-        var character = game.characters[from];
-        if (character) {
-            from = character.name;
-            if (character.image) {
-                $('#callerpicture').html('<img src="' + character.image + '"/>');
-                // hide the profile picture after six seconds
-                setTimeout(function () {
-                    $('#callerpicture').html("");
-                }, 6000)
-            }
-        }
-        // Append message to messages pane and scroll to the bottom
-        var existingMessage = $('#gamemessages').html();
-        var newMessage = existingMessage + '<span>' + from + ': </span>' + message + '<br>';
-        $('#gamemessages').html(newMessage);
-        $('#gamemessages').animate({scrollTop: $('#gamemessages').prop('scrollHeight')});
-    },
-    /* Message Box related code*/
-    messageBoxOkCallback: undefined,
-    messageBoxCancelCallback: undefined,
-    showMessageBox: function (message, onOK, onCancel) {
-        // Set message box text
-        $('#messageboxtext').html(message);
-
-        // Set message box ok and cancel handlers and enable buttons
-        if (!onOK) {
-            game.messageBoxOkCallback = undefined;
-        } else {
-            game.messageBoxOkCallback = onOK;
-        }
-
-        if (!onCancel) {
-            game.messageBoxCancelCallback = undefined;
-            $("#messageboxcancel").hide();
-        } else {
-            game.messageBoxCancelCallback = onCancel;
-            $("#messageboxcancel").show();
-        }
-
-        // Display the message box and wait for user to click a button
-        $('#messageboxscreen').show();
-    },
-    messageBoxOK: function () {
-        $('#messageboxscreen').hide();
-        if (game.messageBoxOkCallback) {
-            game.messageBoxOkCallback()
-        }
-    },
-    messageBoxCancel: function () {
-        $('#messageboxscreen').hide();
-        if (game.messageBoxCancelCallback) {
-            game.messageBoxCancelCallback();
-        }
-    },
     end: function () {
 
         if (game.type == "singleplayer")
             singleplayer.endGame();
-        else
-            multiplayer.endGame(true);
 
     },
 
@@ -842,31 +744,9 @@ var game = {
         //if the number of lines cleared is now divisble by 10,
         //make the level speed faster
         if (game.linesCleared % 10 == 0) {
-            game.incrementLevel();
+            //TODO maybe inplement?
+            //game.incrementLevel();
         }
-
-    },
-
-    /**
-     * increments the level and makes the game go faster
-     * level limit is 20.
-     */
-    incrementLevel: function () {
-
-        //20 is the max level
-        if (game.level == 20)
-            return;
-
-        game.level++;
-
-        //TODO make faster?
-
-        //faster!
-        //game.pieceDropTick -= PIECE_DROP_TICK_DECREMENT;
-
-        //pieceDropTick cannot go lower than the SPF.
-        //if(game.pieceDropTick < TICK_INITIAL)
-        //	game.pieceDropTick = TICK_INITIAL;
 
     }
 

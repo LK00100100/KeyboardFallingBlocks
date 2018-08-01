@@ -38,7 +38,7 @@ var singleplayer = {
         game.animationInterval = setInterval(game.animationLoop, game.animationTimeout);
 
         //then draw the sprites (whenever you can)
-        game.start();
+        game.startGame();
     },
 
     //game's end() calls this.

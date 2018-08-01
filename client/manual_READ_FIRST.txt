@@ -1,6 +1,10 @@
 keyboard falling blocks (KFB) manual.
 
-Play on "Google Chrome on full screen"
+Play on Chrome
+
+firefox has a problem.
+	bug: press "/" then "," then press space.
+	space isn't hit
 
 BETA TESTING
 
@@ -105,5 +109,4 @@ please return all feed back to me.
 credits
 =====
 
-send your hate mail to LK00100100@ g-male dot com
-please limit your hate mail to 20 words or less.
+send your mail to LK00100100@ g-male dot com

@@ -99,18 +99,27 @@ var keyPressFunctions = {
 //keydown actions
 $(window).keydown(function (e) {
 
+    console.log("keyPressed: " + e.which);
+
     //get the button press
     var keyPressed = e.which;
 
+    // forward slash - prevent default "quick find" for firefox.
+    // quotes - prevent quick find
+    if (keyPressed == 191 || keyPressed == 222) {
+        e.preventDefault();
+    }
+
+    //shift (hold a piece)
     if(keyPressed == 16){
         keyPressFunctions.shiftKeyFunction();
         return;
     }
 
-    //shift (hold) or space (cancel)
+    //space (cancel commands)
     if (keyPressed == 32) {
+        console.log("space pressed");
 
-        console.log("key down 32");
         keyPressFunctions.spaceKeyFunction();
         return;
     }
@@ -170,6 +179,7 @@ $(window).keyup(function (e) {
 
 });
 
+//TODO init only what is in the array
 //init isPressed
 var numKeys = 200;
 var i;

@@ -16,13 +16,13 @@ var game = {
     FPS: 30,                //30 frames per second
     currentTick: 0,
     tickTimePieceDrop: 0,	//drop timer counter
-    pieceDropTick: 0,		//dropping threshold.
+    pieceDropTick: 0,		//automatic dropping time threshold.
     animationTimeout: -1, 	// 100 = 100 milliseconds or 10 times a second, i set it to 30 SPF
 
     //DRAWING INFO
     BLOCK_WIDTH: 25,
-    CURRENTPIECE_X: -1,
-    CURRENTPIECE_Y: -1,
+    CURRENT_PIECE_X: -1,
+    CURRENT_PIECE_Y: -1,
     DRAW_BOARD_X: 175,
     DRAW_BOARD_Y: 0,
     DRAW_BOARD_TOP_DRAWABLE_ROW: 0,	//the first row (top) we draw from.
@@ -32,17 +32,17 @@ var game = {
     DRAW_GAME_TIMER_Y: 340,
     DRAW_LEVEL_X: 215,
     DRAW_LEVEL_Y: 400,
-    DRAW_NEXTPIECE_X: 510,
-    DRAW_NEXTPIECE_Y: 50,
-    DRAW_NEXTPIECE_Y_GAP: 80,
-    DRAW_HOLDPIECE_X: 30,
-    DRAW_HOLDPIECE_Y: 60,
+    DRAW_NEXT_PIECE_X: 510,
+    DRAW_NEXT_PIECE_Y: 50,
+    DRAW_NEXT_PIECE_Y_GAP: 80,
+    DRAW_HOLD_PIECE_X: 30,
+    DRAW_HOLD_PIECE_Y: 60,
 
     //GAME INFO
     BOARD_ROWS: 25,			//total rows, including invisible ceiling. 0 is the top
     BOARD_CEILING_ROWS: 5,	//number of invisible ceiling rows
     BOARD_COLS: 10,
-    START_ROW: 0,			//current piece's start area
+    START_ROW: 0,			//current piece's starting area
     START_COL: 3,
     LINES_TO_LEVEL_UP: 10,
     LINES_TO_WIN: -1,
@@ -54,14 +54,15 @@ var game = {
     level: -1,
     score: -1,
     linesCleared: -1,
-    board: [],					//0 = empty, 1 = occupied, # = special
+    board: [],					//0 = empty, 1 = occupied, 2 = marked for clearing, 3 = ghost piece
     tempSwap: null,
     holdPiece: null,
-    hardDrop: false,				//if there was a keyup
+    hardDrop: false,		    //if there was a keyup
     //{col, rotate, hold, pause}
     commands: [],				//stores player commands. only processed during the "waiting command" stage
     currentPiece: null,
-    currentPieceOriginal: null,	//the starting position for currentPiece.
+    ghostPiece: null,
+    currentPieceOriginal: null,	//the starting position/orientation for currentPiece.
     nextPieces: [],
     justPressedHold: false,		//to ensure that we don't press hold infinitely. only once per drop.
     gameOver: false,
@@ -91,32 +92,25 @@ var game = {
             game.board[i] = new Array(game.BOARD_COLS);
 
         //some final stuff
-        game.CURRENTPIECE_X = game.DRAW_BOARD_X + (game.BLOCK_WIDTH * 11);
-        game.CURRENTPIECE_Y = game.BLOCK_WIDTH / 2;
+        game.CURRENT_PIECE_X = game.DRAW_BOARD_X + (game.BLOCK_WIDTH * 11);
+        game.CURRENT_PIECE_Y = game.BLOCK_WIDTH / 2;
 
         //seconds per frame
         var SPF = 1000 / game.FPS;
         game.animationTimeout = SPF;
-
     },
-    start: function () {
+
+    startGame: function () {
         $('.gamelayer').hide();
         $('#gameinterfacescreen').show();
 
-        //show key assist if enabled
-        $('#keyAssist').html(
-            "1 2 3 4 5 6 7 8 9 0<br>" +
-            "Q W E R T Y U I O P<br>" +
-            "A S D F G H J K L ;<br>" +
-            "Z X C V B N M , . /").show();
-
         game.running = true;
-        game.refreshBackground = true;
+
+        draw.drawKeyAssist();
 
         game.drawingLoop();
 
         $('#gamemessages').html("");
-
     },
 
     //A control loop that runs at a fixed period of time
@@ -168,153 +162,10 @@ var game = {
 
     },
 
-
     //TODO, move this out to another function.
     //draws the sprites onto the game.
     drawingLoop: function () {
-        //the background is drawn once by default
-
-        // Clear the foreground canvas
-        game.foregroundContext.clearRect(0, 0, game.canvasWidth, game.canvasHeight);
-
-        var x, y;
-
-        //TODO only redraw the board if there's change
-
-        // draw the board (empty and current piece)
-        // (start drawing from the top-drawing row, the visible ceiling)
-        for (var row = game.DRAW_BOARD_TOP_DRAWABLE_ROW; row < game.BOARD_ROWS; row++) {
-            y = game.DRAW_BOARD_Y + ((row - game.DRAW_BOARD_TOP_DRAWABLE_ROW) * game.BLOCK_WIDTH);
-
-            for (var col = 0; col < game.BOARD_COLS; col++) {
-
-                x = game.DRAW_BOARD_X + (col * game.BLOCK_WIDTH);
-
-                //draw an empty block
-                if (game.board[row][col] == 0) {
-                    //empty border
-                    //game.foregroundContext.fillStyle = "#FF0000";	//red
-                    //game.foregroundContext.fillRect(x, y, game.BLOCK_WIDTH, game.BLOCK_WIDTH);
-                    game.foregroundContext.strokeStyle = "#00ff00";	//black border
-                    game.foregroundContext.lineWidth = 1;
-                    game.foregroundContext.strokeRect(x, y, game.BLOCK_WIDTH, game.BLOCK_WIDTH);
-                }
-                //draw a block
-                else {
-                    game.foregroundContext.fillStyle = "#00aa00";	//
-                    game.foregroundContext.fillRect(x, y, game.BLOCK_WIDTH, game.BLOCK_WIDTH);
-                    game.foregroundContext.strokeStyle = "#00ff00";	//black border
-                    game.foregroundContext.lineWidth = 1;
-                    game.foregroundContext.strokeRect(x, y, game.BLOCK_WIDTH, game.BLOCK_WIDTH);
-                }
-            }
-        }
-
-        //draw losing limit line (under row[3])
-        game.foregroundContext.beginPath();
-        y = game.DRAW_BOARD_Y + ((game.GAME_OVER_ROW + 1) * game.BLOCK_WIDTH);
-        game.foregroundContext.moveTo(game.DRAW_BOARD_X, y);
-        x = game.DRAW_BOARD_X + (game.BOARD_COLS * game.BLOCK_WIDTH);
-        game.foregroundContext.lineTo(x, y);
-        game.foregroundContext.lineWidth = 4;
-        game.foregroundContext.strokeStyle = '#ff0000';
-        game.foregroundContext.stroke();
-
-
-        //TODO draw actual faint ghost piece
-        //draw ghost piece
-        game.foregroundContext.lineWidth = 2;
-        game.foregroundContext.strokeStyle = '#ff0000';
-
-        //draw left line.
-        game.foregroundContext.beginPath();
-        x = game.DRAW_BOARD_X + (game.currentPiece.col * game.BLOCK_WIDTH);
-        y = game.DRAW_BOARD_Y + (game.currentPiece.row * game.BLOCK_WIDTH);
-        game.foregroundContext.moveTo(x, y);
-        y = game.DRAW_BOARD_Y + (game.BLOCK_WIDTH * game.BOARD_ROWS);
-        game.foregroundContext.lineTo(x, y);
-        game.foregroundContext.stroke();
-
-        //draw right line
-        game.foregroundContext.beginPath();
-        x = game.DRAW_BOARD_X + (game.currentPiece.col * game.BLOCK_WIDTH) + (game.currentPiece.colSize * game.BLOCK_WIDTH);
-        y = game.DRAW_BOARD_Y + (game.currentPiece.row * game.BLOCK_WIDTH);
-        game.foregroundContext.moveTo(x, y);
-        y = game.DRAW_BOARD_Y + (game.BLOCK_WIDTH * game.BOARD_ROWS);
-        game.foregroundContext.lineTo(x, y);
-        game.foregroundContext.stroke();
-
-        //draw holding piece
-        if (game.holdPiece) {
-            game.foregroundContext.fillStyle = "#00ff00";
-            game.foregroundContext.strokeStyle = "#000000";	//black border
-            game.foregroundContext.lineWidth = 1;
-
-            //draw a piece
-            for (row = 0; row < game.holdPiece.rowSize; row++) {
-                for (col = 0; col < game.holdPiece.colSize; col++) {
-                    if (game.holdPiece.space[row][col] != 0) {
-
-                        game.foregroundContext.fillRect(
-                            game.DRAW_HOLDPIECE_X + (col * game.BLOCK_WIDTH)
-                            , game.DRAW_HOLDPIECE_Y + (row * game.BLOCK_WIDTH)
-                            , game.BLOCK_WIDTH
-                            , game.BLOCK_WIDTH);
-                        game.foregroundContext.strokeRect(
-                            game.DRAW_HOLDPIECE_X + (col * game.BLOCK_WIDTH)
-                            , game.DRAW_HOLDPIECE_Y + (row * game.BLOCK_WIDTH)
-                            , game.BLOCK_WIDTH
-                            , game.BLOCK_WIDTH);
-
-                    }
-                }
-            }
-
-        }
-
-        //draw next pieces
-        var tempPiece;
-        game.foregroundContext.fillStyle = "#00ff00";
-        game.foregroundContext.strokeStyle = "#000000";	//black border
-        game.foregroundContext.lineWidth = 1;
-        for (var i = 0; i < game.nextPieces.length; i++) {
-            tempPiece = game.nextPieces[i];
-
-            //draw a piece
-            for (row = 0; row < tempPiece.rowSize; row++) {
-                for (col = 0; col < tempPiece.colSize; col++) {
-                    if (tempPiece.space[row][col] != 0) {
-
-                        game.foregroundContext.fillRect(
-                            game.DRAW_NEXTPIECE_X + (col * game.BLOCK_WIDTH)
-                            , game.DRAW_NEXTPIECE_Y + (row * game.BLOCK_WIDTH) + (i * game.DRAW_NEXTPIECE_Y_GAP)
-                            , game.BLOCK_WIDTH
-                            , game.BLOCK_WIDTH);
-                        game.foregroundContext.strokeRect(
-                            game.DRAW_NEXTPIECE_X + (col * game.BLOCK_WIDTH)
-                            , game.DRAW_NEXTPIECE_Y + (row * game.BLOCK_WIDTH) + (i * game.DRAW_NEXTPIECE_Y_GAP)
-                            , game.BLOCK_WIDTH
-                            , game.BLOCK_WIDTH);
-
-                    }
-                }
-            }
-        }
-
-        //draw timer
-        $('#time').html(game.time);
-
-        //draw score
-        //TODO score?
-
-        //draw lines cleared
-        $('#lines').html(game.linesCleared);
-
-        // Call the drawing loop for the next frame using request animation frame
-        if (game.running) {
-            requestAnimationFrame(game.drawingLoop);
-        }
-
+        draw.drawFrame();
     },
 
     //note: if get a certain amount of lines and die on the same frame, it's a victory.
@@ -341,6 +192,16 @@ var game = {
 
     },
 
+    clearBoard: function() {
+
+        //clear the board
+        for (var row = 0; row < game.board.length; row++) {
+            for (var col = 0; col < game.board[0].length; col++) {
+                game.board[row][col] = 0;
+            }
+        }
+    },
+
     //reset all game variables to square-0.
     resetGame: function () {
 
@@ -355,16 +216,11 @@ var game = {
 
         game.hardDrop = false;
 
-        //clear the board
-        for (var row = 0; row < game.board.length; row++) {
-            for (var col = 0; col < game.board[0].length; col++) {
-                game.board[row][col] = 0;
-            }
-        }
+        game.clearBoard();
 
         //get the current piece and a copy.
         game.currentPieceOriginal = pieceFactory.generateRandomPieceSizeFour();
-        game.initNewPiece(game.currentPieceOriginal);
+        game.placePieceInStart(game.currentPieceOriginal);
 
         game.currentPiece = $.extend({}, game.currentPieceOriginal);
 
@@ -373,7 +229,7 @@ var game = {
         game.nextPieces = [];
         for (var i = 0; i < game.NEXT_PIECES_MAXSIZE; i++) {
             pieceTemp = pieceFactory.generateRandomPieceSizeFour();
-            game.initNewPiece(pieceTemp);
+            game.placePieceInStart(pieceTemp);
             game.nextPieces.push(pieceTemp);
         }
 
@@ -381,7 +237,7 @@ var game = {
         game.justPressedHold = false;
 
         //put the currentPiece on the board
-        game.fitPiece(game.currentPiece, game.currentPiece.row, game.currentPiece.col);
+        game.placePiece(game.currentPiece, game.currentPiece.row, game.currentPiece.col);
 
     },
 
@@ -435,7 +291,7 @@ var game = {
      * @param row - top-left corner
      * @param col
      */
-    fitPiece: function (thePiece, row, col) {
+    placePiece: function (thePiece, row, col) {
 
         //put the piece in.
         for (var i = 0; i < thePiece.rowSize; i++) {
@@ -462,7 +318,10 @@ var game = {
      * @param row - top left corner
      * @param col
      */
-    removePiece: function (thePiece, row, col) {
+    removePiece: function (thePiece) {
+
+        var row = thePiece.row;
+        var col = thePiece.col;
 
         //go through every square in the piece and only remove a piece section if
         //the piece section exists
@@ -478,10 +337,11 @@ var game = {
 
     },
 
-    /*
-     * init new piece
+    /**
+     * init new piece.
+     * Put it in the starting position
      */
-    initNewPiece: function (tempPiece) {
+    placePieceInStart: function (tempPiece) {
 
         tempPiece.row = game.START_ROW;
         tempPiece.col = game.START_COL;
@@ -501,7 +361,7 @@ var game = {
 
         //add a new piece to the queue.
         var pieceTemp = pieceFactory.generateRandomPieceSizeFour();
-        game.initNewPiece(pieceTemp);
+        game.placePieceInStart(pieceTemp);
         game.nextPieces.push(pieceTemp);
 
     },
@@ -514,12 +374,14 @@ var game = {
      */
     attemptToPlaceCurrentPiece: function () {
 
+        //TODO implement this in later game modes.
+
         //check to see if there's a collision at the starting spot.
         //if(!game.doesPieceFit(game.currentPiece, game.currentPiece.row, game.currentPiece.col))
         //	game.end();
 
         //fit piece anyways to demonstrate the player's incompetence.
-        game.fitPiece(game.currentPiece, game.currentPiece.row, game.currentPiece.col);
+        game.placePiece(game.currentPiece, game.currentPiece.row, game.currentPiece.col);
 
     },
 
@@ -608,13 +470,13 @@ var game = {
      * @param command {col, rotate}
      * @return true if the piece was successfully moved. false if nothing happened.
      */
-    movePiece: function (command) {
+    attemptToMovePiece: function (command) {
 
         //rotate on a pivot X-amount
         if (typeof command.rotate !== 'undefined') {
 
             //remove the piece in the original place.
-            game.removePiece(game.currentPiece, game.currentPiece.row, game.currentPiece.col);
+            game.removePiece(game.currentPiece);
 
             //rotate it and place.
             while (command.rotate-- > 0)
@@ -625,7 +487,7 @@ var game = {
                 game.currentPiece.row = 0;
 
             //place the piece in the new spot
-            game.fitPiece(game.currentPiece, game.currentPiece.row, game.currentPiece.col);
+            game.placePiece(game.currentPiece, game.currentPiece.row, game.currentPiece.col);
 
         }
 
@@ -633,7 +495,7 @@ var game = {
         if (typeof command.col !== 'undefined') {
 
             //remove the piece in the original place.
-            game.removePiece(game.currentPiece, game.currentPiece.row, game.currentPiece.col);
+            game.removePiece(game.currentPiece);
 
             //out of bounds, push it back in to the left
             if (command.col + game.currentPiece.colSize > game.BOARD_COLS)
@@ -641,26 +503,27 @@ var game = {
 
             //see if it fits in the new place
             //place the piece in the new spot
-            game.fitPiece(game.currentPiece, game.currentPiece.row, command.col);
+            game.placePiece(game.currentPiece, game.currentPiece.row, command.col);
 
         }
 
     },
+
     hardDropPiece: function () {
 
         game.justPressedHold = false;
 
         //drop the piece down one row at a time
         while (true) {
-            game.removePiece(game.currentPiece, game.currentPiece.row, game.currentPiece.col);
+            game.removePiece(game.currentPiece);
 
             if (game.doesPieceFit(game.currentPiece, game.currentPiece.row + 1, game.currentPiece.col)) {
                 //place the piece in the new spot
-                game.fitPiece(game.currentPiece, game.currentPiece.row + 1, game.currentPiece.col);
+                game.placePiece(game.currentPiece, game.currentPiece.row + 1, game.currentPiece.col);
             }
             else {//doesn't fit in the new spot.
                 //place the piece back in the original spot.
-                game.fitPiece(game.currentPiece, game.currentPiece.row, game.currentPiece.col);
+                game.placePiece(game.currentPiece, game.currentPiece.row, game.currentPiece.col);
                 break;
             }
         }
@@ -690,8 +553,10 @@ var game = {
         if (command.hold && game.justPressedHold == false) {
             game.justPressedHold = true;
 
-            //remove the old ghost piece
-            game.removePiece(game.currentPiece, game.currentPiece.row, game.currentPiece.col);
+            //TODO remove the ghost piece
+
+            //remove the current piece
+            game.removePiece(game.currentPiece);
 
             //rotate piece until it's back at its starting rotation for presentation
             //while(game.currentPiece.currentRotation != 1)
@@ -711,25 +576,42 @@ var game = {
 
             game.attemptToPlaceCurrentPiece();
 
-            return; //do not execute any moves. after holding
+            //do not execute any moves. after holding
+            return;
         }
 
         //for the current piece,
-        //attempt to rotate amd move to col,
+        //attempt to rotate and move to col,
         if (typeof command.col !== 'undefined' || typeof command.rotate !== 'undefined') {
 
             //TODO make this more efficient later?
 
             //reset this piece to the original orientation
-            game.removePiece(game.currentPiece, game.currentPiece.row, game.currentPiece.col);
+            game.removePiece(game.currentPiece);
             game.currentPiece = $.extend({}, game.currentPieceOriginal);
 
-            game.movePiece(command);
+            game.attemptToMovePiece(command);
+
+            //generate ghost piece
+            game.generateGhostPiece();
+
         }
 
         if (typeof command.hardDrop !== 'undefined') {
             game.hardDropPiece();
         }
+
+    },
+
+    generateGhostPiece : function() {
+
+        //remove current piece
+
+
+        //place ghost piece
+
+
+        //shove it down to the bottom.
 
     },
 

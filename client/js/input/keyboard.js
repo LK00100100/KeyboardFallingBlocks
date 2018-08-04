@@ -171,10 +171,11 @@ $(window).keyup(function (e) {
         keyPressFunctions.activeKeys = [];
         game.commands = [];
 
+        //move
         keyPressFunctions.executeKeyAction(keyPressed);
 
-        game.hardDrop = true;
-
+        //then hard drop
+        game.commands.push({hardDrop: true});
     }
 
 });

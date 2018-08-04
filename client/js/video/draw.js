@@ -48,7 +48,7 @@ var draw = {
                 x = game.DRAW_BOARD_X + (col * game.BLOCK_WIDTH);
 
                 //draw an empty block
-                if (game.board[row][col] == 0) {
+                if (board.theBoard[row][col] == 0) {
                     //empty border
                     //game.foregroundContext.fillStyle = "#FF0000";	//red
                     //game.foregroundContext.fillRect(x, y, game.BLOCK_WIDTH, game.BLOCK_WIDTH);
@@ -60,7 +60,7 @@ var draw = {
                 else {
 
                     //regular block
-                    if(game.board[row][col] == 1){
+                    if(board.theBoard[row][col] == 1){
                         game.foregroundContext.fillStyle = "#00aa00";
                         game.foregroundContext.fillRect(x, y, game.BLOCK_WIDTH, game.BLOCK_WIDTH);
                         game.foregroundContext.strokeStyle = "#00ff00";	//black border
@@ -68,7 +68,7 @@ var draw = {
                         game.foregroundContext.strokeRect(x, y, game.BLOCK_WIDTH, game.BLOCK_WIDTH);
                     }
                     //ghost block
-                    else if(game.board[row][col] == 3){
+                    else if(board.theBoard[row][col] == 3){
                         game.foregroundContext.fillStyle = "#003300";
                         game.foregroundContext.fillRect(x, y, game.BLOCK_WIDTH, game.BLOCK_WIDTH);
                         game.foregroundContext.strokeStyle = "#00ff00";	//black border

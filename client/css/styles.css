@@ -68,7 +68,59 @@
     text-align:left;
 }
 
+#gameinterfacescreen #holdText {
+    width:120px;
+    height:22px;
+    position:absolute;
+    left:20px;
+    top:20px;
+    color: green;
+    overflow:hidden;
+    font-size: 25px;
+    font-family: 'Courier New', Courier, monospace;
+    text-align:left;
+}
+
+#gameinterfacescreen #nextText {
+    width:120px;
+    height:22px;
+    position:absolute;
+    left:500px;
+    top:20px;
+    color: green;
+    overflow:hidden;
+    font-size: 25px;
+    font-family: 'Courier New', Courier, monospace;
+    text-align:left;
+}
+
+#gameinterfacescreen #linesText {
+    width:120px;
+    height:22px;
+    position:absolute;
+    left:20px;
+    top:130px;
+    color: green;
+    overflow:hidden;
+    font-size: 25px;
+    font-family: 'Courier New', Courier, monospace;
+    text-align:left;
+}
+
 #gameinterfacescreen #lines {
+    width:120px;
+    height:22px;
+    position:absolute;
+    left:20px;
+    top:160px;
+    color: green;
+    overflow:hidden;
+    font-size: 25px;
+    font-family: 'Courier New', Courier, monospace;
+    text-align:left;
+}
+
+#gameinterfacescreen #levelText {
     width:120px;
     height:22px;
     position:absolute;
@@ -81,12 +133,65 @@
     text-align:left;
 }
 
+#gameinterfacescreen #level {
+    width:120px;
+    height:22px;
+    position:absolute;
+    left:20px;
+    top:250px;
+    color: green;
+    overflow:hidden;
+    font-size: 25px;
+    font-family: 'Courier New', Courier, monospace;
+    text-align:left;
+}
+
+#gameinterfacescreen #scoreText {
+    width:120px;
+    height:22px;
+    position:absolute;
+    left:20px;
+    top:310px;
+    color: green;
+    overflow:hidden;
+    font-size: 25px;
+    font-family: 'Courier New', Courier, monospace;
+    text-align:left;
+}
+
+#gameinterfacescreen #score {
+    width:120px;
+    height:22px;
+    position:absolute;
+    left:20px;
+    top:340px;
+    color: green;
+    overflow:hidden;
+    font-size: 25px;
+    font-family: 'Courier New', Courier, monospace;
+    text-align:left;
+}
+
+
+#gameinterfacescreen #timeText {
+    width:120px;
+    height:22px;
+    position:absolute;
+    left:20px;
+    top:400px;
+    color: green;
+    overflow:hidden;
+    font-size: 25px;
+    font-family: 'Courier New', Courier, monospace;
+    text-align:left;
+}
+
 #gameinterfacescreen #time {
     width:120px;
     height:22px;
     position:absolute;
     left:20px;
-    top:480px;
+    top:430px;
     color: green;
     overflow:hidden;
     font-size: 25px;

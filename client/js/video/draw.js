@@ -14,8 +14,6 @@ var draw = {
 
         this.drawLosingLine();
 
-        this.drawGhostPiece();
-
         this.drawHoldPiece();
 
         this.drawNextPieces();
@@ -23,6 +21,8 @@ var draw = {
         this.drawTime();
 
         this.drawLinesCleared();
+
+        this.drawHoldBox();
 
         //draw score
         //TODO score?
@@ -52,7 +52,7 @@ var draw = {
                     //empty border
                     //game.foregroundContext.fillStyle = "#FF0000";	//red
                     //game.foregroundContext.fillRect(x, y, game.BLOCK_WIDTH, game.BLOCK_WIDTH);
-                    game.foregroundContext.strokeStyle = "#00ff00";	//black border
+                    game.foregroundContext.strokeStyle = "#003300";	//green border
                     game.foregroundContext.lineWidth = 1;
                     game.foregroundContext.strokeRect(x, y, game.BLOCK_WIDTH, game.BLOCK_WIDTH);
                 }
@@ -63,15 +63,15 @@ var draw = {
                     if(board.theBoard[row][col] == 1){
                         game.foregroundContext.fillStyle = "#00aa00";
                         game.foregroundContext.fillRect(x, y, game.BLOCK_WIDTH, game.BLOCK_WIDTH);
-                        game.foregroundContext.strokeStyle = "#00ff00";	//black border
+                        game.foregroundContext.strokeStyle = "#00ff00";	//green border
                         game.foregroundContext.lineWidth = 1;
                         game.foregroundContext.strokeRect(x, y, game.BLOCK_WIDTH, game.BLOCK_WIDTH);
                     }
                     //ghost block
                     else if(board.theBoard[row][col] == 3){
-                        game.foregroundContext.fillStyle = "#003300";
+                        game.foregroundContext.fillStyle = "#005500";
                         game.foregroundContext.fillRect(x, y, game.BLOCK_WIDTH, game.BLOCK_WIDTH);
-                        game.foregroundContext.strokeStyle = "#00ff00";	//black border
+                        game.foregroundContext.strokeStyle = "#00ff00";	//green border
                         game.foregroundContext.lineWidth = 1;
                         game.foregroundContext.strokeRect(x, y, game.BLOCK_WIDTH, game.BLOCK_WIDTH);
 
@@ -94,12 +94,12 @@ var draw = {
         x = game.DRAW_BOARD_X + (game.BOARD_COLS * game.BLOCK_WIDTH);
         game.foregroundContext.lineTo(x, y);
         game.foregroundContext.lineWidth = 4;
-        game.foregroundContext.strokeStyle = '#ff0000';
+        game.foregroundContext.strokeStyle = '#00ff00';
         game.foregroundContext.stroke();
 
     },
 
-    drawGhostPiece : function (){
+    drawGhostLines : function (){
 
         //TODO draw actual faint ghost piece
         //draw ghost piece
@@ -199,6 +199,21 @@ var draw = {
     drawLinesCleared : function() {
         //draw lines cleared
         $('#lines').html(game.linesCleared);
+    },
+
+    drawHoldBox : function (){
+
+        game.foregroundContext.strokeStyle = "#00ff00";	//green border
+        game.foregroundContext.lineWidth = 1;
+
+        game.foregroundContext.strokeRect(20, 50, 120, 70);
+
+    },
+
+    drawMessageBox : function(){
+
+
+
     },
 
     drawKeyAssist : function () {

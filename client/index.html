@@ -35,7 +35,7 @@
 
 			<div id="mainscreen" class="gamelayer">
 				<span id="singleplayer10" onclick = "singleplayer.start10Lines();">10 Lines</span>
-				<span id="singleplayer100" onclick = "singleplayer.start100Lines();">100 Lines</span>
+				<span id="singleplayer100" onclick = "singleplayer.start40Lines();">40 Lines</span>
 			</div>
 
 			<div id="aboutscreen" class="gamelayer">
@@ -43,16 +43,22 @@
 	        </div>
 
 			<div id="gameinterfacescreen" class="gamelayer">
-			    <div id="lines">lines</div>
-				<div id="time">timehere</div>
+				<canvas id="gamebackgroundcanvas" height="640" width="640"></canvas>
+				<canvas id="gameforegroundcanvas" height="640" width="640"></canvas>
+
+				<div id="keyAssist"></div>
+
+				<div id="holdText">HOLD</div>
+				<div id="nextText">NEXT</div>
+
+				<div id="linesText">LINES</div>
+				<div id="lines"></div>
+				<div id="levelText">LEVEL</div>
 				<div id="level"></div>
+				<div id="scoreText">SCORE</div>
 				<div id="score"></div>
-
-				<div id="keyAssist">To-Be-Replaced</div>
-
-			    <canvas id="gamebackgroundcanvas" height="640" width="640"></canvas>
-			    <canvas id="gameforegroundcanvas" height="640" width="640"></canvas>
-
+				<div id="timeText">TIME</div>
+				<div id="time"></div>
 			</div>
 
 	        <div id="loadingscreen" class="gamelayer">

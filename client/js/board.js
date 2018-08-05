@@ -201,15 +201,43 @@ var board = {
 
     },
 
+    removeGhostPiece : function () {
+
+        if(game.ghostPiece == null)
+            return;
+
+        board.removePiece(game.ghostPiece);
+
+    },
+
+    generateGhostPiece : function() {
+
+        //clone ghost piece
+        game.ghostPiece = $.extend({}, game.currentPiece);
+        game.ghostPiece.id = 3;
+
+        //remove current piece
+        board.removePiece(game.currentPiece);
+
+        //shove ghost piece down to the bottom.
+        var i = 1;
+        while (board.doesPieceFit(game.ghostPiece, game.ghostPiece.row + i, game.ghostPiece.col)) {
+            i += 1;
+        }
+        board.placePiece(game.ghostPiece, game.ghostPiece.row + i - 1, game.ghostPiece.col);
+
+        board.placePiece(game.currentPiece, game.currentPiece.row, game.currentPiece.col);
+    },
+
     /**
      * if the board's game over line has been passed, the game is over.
      * @returns {boolean}
      */
     isBoardGameOver : function() {
 
-        //if the losing line has been touched.
+        //if the losing line has been touched by a solid piece
         for (var i = 0; i < game.BOARD_COLS; i++) {
-            if (board.theBoard[game.GAME_OVER_ROW][i] != 0)
+            if (board.theBoard[game.GAME_OVER_ROW][i] == 1)
                 return true;
         }
 

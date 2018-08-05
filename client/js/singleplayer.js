@@ -17,8 +17,8 @@ var singleplayer = {
         this.initStart();
     },
 
-    start100Lines: function () {
-        game.LINES_TO_WIN = 100;
+    start40Lines: function () {
+        game.LINES_TO_WIN = 40;
 
         this.initStart();
     },

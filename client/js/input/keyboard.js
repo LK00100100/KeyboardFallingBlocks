@@ -77,7 +77,6 @@ var keyPressFunctions = {
 
         keyPressFunctions.activeKeys = [];
         game.commands = [];
-        game.hardDrop = false;
     },
 
     /*
@@ -108,6 +107,19 @@ $(window).keydown(function (e) {
     // quotes - prevent quick find
     if (keyPressed == 191 || keyPressed == 222) {
         e.preventDefault();
+    }
+
+
+    //backspace pressed
+    //go back to main menu
+    if(keyPressed == 8){
+        //TODO main menu
+    }
+
+    //enter pressed
+    //reset game
+    if(keyPressed == 13){
+        //TODO reset
     }
 
     //shift (hold a piece)
@@ -175,7 +187,7 @@ $(window).keyup(function (e) {
         keyPressFunctions.executeKeyAction(keyPressed);
 
         //then hard drop
-        game.commands.push({hardDrop: true});
+        game.commands.push({hardDropCommand: true});
     }
 
 });

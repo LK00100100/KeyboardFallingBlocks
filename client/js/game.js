@@ -109,8 +109,7 @@ var game = {
 
         //get the current piece and a copy.
         game.currentPieceOriginal = pieceFactory.generateRandomPieceSizeFour();
-        game.placePieceInStart(game.currentPieceOriginal);
-
+        game.setPieceInStartPosition(game.currentPieceOriginal);
         game.currentPiece = $.extend({}, game.currentPieceOriginal);
 
         //get the next pieces
@@ -118,7 +117,7 @@ var game = {
         game.nextPieces = [];
         for (var i = 0; i < game.NEXT_PIECES_MAXSIZE; i++) {
             pieceTemp = pieceFactory.generateRandomPieceSizeFour();
-            game.placePieceInStart(pieceTemp);
+            game.setPieceInStartPosition(pieceTemp);
             game.nextPieces.push(pieceTemp);
         }
 
@@ -128,6 +127,7 @@ var game = {
         //put the currentPiece on the board
         board.placePiece(game.currentPiece, game.currentPiece.row, game.currentPiece.col);
 
+        board.generateGhostPiece();
     },
 
     startGame: function () {
@@ -188,39 +188,19 @@ var game = {
      */
     processInput: function (command) {
 
+        board.removeGhostPiece();
+
         //if hold piece pressed and we can activate it.
         if (command.hold && game.justPressedHold == false) {
-            game.justPressedHold = true;
 
-            //TODO remove the ghost piece
-
-            //remove the current piece
-            board.removePiece(game.currentPiece);
-
-            //rotate piece until it's back at its starting rotation for presentation
-            //while(game.currentPiece.currentRotation != 1)
-            //game.currentPiece.rotate();
-
-            if (game.holdPiece == null) {//new holdPiece
-                game.holdPiece = game.currentPieceOriginal;
-                game.getNextCurrentPiece();
-            }
-            else {//swap pieces currentPiece and holdPiece
-                var tempSwap = game.currentPieceOriginal;
-                game.currentPieceOriginal = game.holdPiece;
-                game.holdPiece = tempSwap;
-
-                game.currentPiece = $.extend({}, game.currentPieceOriginal);
-            }
-
-            game.attemptToPlaceCurrentPiece();
+            game.holdPieceCommand();
 
             //do not execute any moves. after holding
             return;
         }
 
         //for the current piece,
-        //attempt to rotate and move to col,
+        //attempt to rotate and move to col.
         if (typeof command.col !== 'undefined' || typeof command.rotate !== 'undefined') {
 
             //TODO make this more efficient later?
@@ -230,40 +210,49 @@ var game = {
             game.currentPiece = $.extend({}, game.currentPieceOriginal);
 
             game.attemptToMovePiece(command);
-
-            //generate ghost piece
-            game.generateGhostPiece();
-
         }
 
-        if (typeof command.hardDrop !== 'undefined') {
-            game.hardDropPiece();
+        //HARD DROP
+        if (typeof command.hardDropCommand !== 'undefined') {
+            game.hardDropCommand();
         }
 
-    },
-
-    removeGhostPiece : function () {
-        //ghostPiece
+        board.generateGhostPiece();
 
     },
 
-    generateGhostPiece : function() {
+    holdPieceCommand : function() {
 
-        //remove current piece
+        game.justPressedHold = true;
 
+        //remove the current piece
+        board.removePiece(game.currentPiece);
 
-        //place ghost piece
+        //rotate piece until it's back at its starting rotation for presentation
+        //while(game.currentPiece.currentRotation != 1)
+        //game.currentPiece.rotate();
 
+        if (game.holdPiece == null) {//new holdPiece
+            game.holdPiece = game.currentPieceOriginal;
+            game.getNextAndPlaceCurrentPiece();
+        }
+        else {//swap pieces currentPiece and holdPiece
+            var tempSwap = game.currentPieceOriginal;
+            game.currentPieceOriginal = game.holdPiece;
+            game.holdPiece = tempSwap;
 
-        //shove it down to the bottom.
+            game.currentPiece = $.extend({}, game.currentPieceOriginal);
+        }
+
+        game.attemptToMoveCurrentPiece(game.currentPiece.row, game.currentPiece.col);
 
     },
+
 
     /**
-     * init new piece.
-     * Put it in the starting position
+     * Set this piece's start position.
      */
-    placePieceInStart: function (tempPiece) {
+    setPieceInStartPosition: function (tempPiece) {
 
         tempPiece.row = game.START_ROW;
         tempPiece.col = game.START_COL;
@@ -275,7 +264,7 @@ var game = {
      * gets the next piece in the Pieces Queue
      * adds another piece to the end of the Pieces Queue
      */
-    getNextCurrentPiece: function () {
+    getNextAndPlaceCurrentPiece: function () {
 
         //get next piece in queue.
         game.currentPieceOriginal = game.nextPieces.shift();
@@ -283,43 +272,34 @@ var game = {
 
         //add a new piece to the queue.
         var pieceTemp = pieceFactory.generateRandomPieceSizeFour();
-        game.placePieceInStart(pieceTemp);
+        game.setPieceInStartPosition(pieceTemp);
         game.nextPieces.push(pieceTemp);
 
     },
 
     /**
-     * this method can be used to:
-     * (if implemented) end the game if currentPiece cannot be placed.
-     *
      * it'll place the piece down regardless of failure. (with overlap)
+     * @param row
+     * @param col
      */
-    attemptToPlaceCurrentPiece: function () {
+    attemptToMoveCurrentPiece: function (row, col) {
 
-        //TODO implement this in later game modes.
-
-        //check to see if there's a collision at the starting spot.
-        //if(!game.doesPieceFit(game.currentPiece, game.currentPiece.row, game.currentPiece.col))
-        //	game.end();
-
-        //fit piece anyways to demonstrate the player's incompetence.
-        board.placePiece(game.currentPiece, game.currentPiece.row, game.currentPiece.col);
+        board.removePiece(game.currentPiece);
+        board.placePiece(game.currentPiece, row, col);
 
     },
 
     /**
      * tries to move the currentPiece in the direction of the argument.
      *
+     * will overlap with other pieces.
+     *
      * @param {{col:string, rotate:string}} command
-     * @return true if the piece was successfully moved. false if nothing happened.
      */
     attemptToMovePiece: function (command) {
 
         //rotate on a pivot X-amount
         if (typeof command.rotate !== 'undefined') {
-
-            //remove the piece in the original place.
-            board.removePiece(game.currentPiece);
 
             //rotate it and place.
             while (command.rotate-- > 0)
@@ -330,15 +310,12 @@ var game = {
                 game.currentPiece.row = 0;
 
             //place the piece in the new spot
-            board.placePiece(game.currentPiece, game.currentPiece.row, game.currentPiece.col);
+            game.attemptToMoveCurrentPiece(game.currentPiece.row, game.currentPiece.col);
 
         }
 
         //move left/right
         if (typeof command.col !== 'undefined') {
-
-            //remove the piece in the original place.
-            board.removePiece(game.currentPiece);
 
             //out of bounds, push it back in to the left
             if (command.col + game.currentPiece.colSize > game.BOARD_COLS)
@@ -346,37 +323,36 @@ var game = {
 
             //see if it fits in the new place
             //place the piece in the new spot
-            board.placePiece(game.currentPiece, game.currentPiece.row, command.col);
+
+
+            game.attemptToMoveCurrentPiece(game.currentPiece.row, command.col);
 
         }
 
     },
 
-    hardDropPiece: function () {
+    hardDropCommand: function () {
 
         game.justPressedHold = false;
 
+        //TODO redo this
         //drop the piece down one row at a time
-        while (true) {
-            board.removePiece(game.currentPiece);
 
-            if (board.doesPieceFit(game.currentPiece, game.currentPiece.row + 1, game.currentPiece.col)) {
-                //place the piece in the new spot
-                board.placePiece(game.currentPiece, game.currentPiece.row + 1, game.currentPiece.col);
-            }
-            else {//doesn't fit in the new spot.
-                //place the piece back in the original spot.
-                board.placePiece(game.currentPiece, game.currentPiece.row, game.currentPiece.col);
-                break;
-            }
+        board.removePiece(game.currentPiece);
+        var i = 1;
+        while (board.doesPieceFit(game.currentPiece, game.currentPiece.row + i, game.currentPiece.col)) {
+            i += 1;
         }
+
+        //go back one (should fit or potentially not if the piece never moved)
+        board.placePiece(game.currentPiece, game.currentPiece.row + i - 1, game.currentPiece.col);
 
         //check that the piece placed causes lines clears
         board.checkLineClears(game.currentPiece.row, game.currentPiece.rowSize);
         board.clearLines();
 
-        game.getNextCurrentPiece();
-        game.attemptToPlaceCurrentPiece();
+        game.getNextAndPlaceCurrentPiece();
+        board.placePiece(game.currentPiece, game.currentPiece.row, game.currentPiece.col);
 
         //if the "red line" has been breached, it is all over
         if (game.isGameOver())
@@ -418,6 +394,6 @@ var game = {
         if (game.type == "singleplayer")
             singleplayer.endGame();
 
-    },
+    }
 
 };

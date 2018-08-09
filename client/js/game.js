@@ -2,12 +2,10 @@
  * holds all the information for the game state
  */
 
-//TODO draw board only when it needs updating.
-//TODO draw holding pieces when it needs updating
-//TODO implement time limit to prevent negative overflow
-
 $(window).load(function () {
     game.init();
+
+    mainmenu.init();
 });
 
 var game = {
@@ -66,7 +64,8 @@ var game = {
     gameOver: false,
 
 
-    // Start pre-loading assets
+    // Start pre-loading assets.
+    // Call once before you enter the game screen.
     init: function () {
         loader.init();
         sounds.init();
@@ -137,7 +136,6 @@ var game = {
         game.running = true;
 
         draw.drawKeyAssist();
-
         game.drawingLoop();
 
         $('#gamemessages').html("");
@@ -193,7 +191,13 @@ var game = {
         //if hold piece pressed and we can activate it.
         if (command.hold && game.justPressedHold == false) {
 
+
+            //TODO make this more efficient later?
+
+
             game.holdPieceCommand();
+
+            board.generateGhostPiece();
 
             //do not execute any moves. after holding
             return;
@@ -203,7 +207,7 @@ var game = {
         //attempt to rotate and move to col.
         if (typeof command.col !== 'undefined' || typeof command.rotate !== 'undefined') {
 
-            //TODO make this more efficient later?
+            //TODO move this in commands.js
 
             //reset this piece to the original orientation
             board.removePiece(game.currentPiece);
@@ -222,6 +226,7 @@ var game = {
     },
 
     holdPieceCommand : function() {
+        //TODO move this in commands.js
 
         game.justPressedHold = true;
 
@@ -254,6 +259,7 @@ var game = {
      */
     setPieceInStartPosition: function (tempPiece) {
 
+        //TODO move this to piece.js
         tempPiece.row = game.START_ROW;
         tempPiece.col = game.START_COL;
         tempPiece.setId(1);
@@ -332,6 +338,8 @@ var game = {
     },
 
     hardDropCommand: function () {
+
+        //TODO move this in commands.js
 
         game.justPressedHold = false;
 

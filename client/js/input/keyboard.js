@@ -98,17 +98,27 @@ var keyPressFunctions = {
 //keydown actions
 $(window).keydown(function (e) {
 
-    console.log("keyPressed: " + e.which);
-
     //get the button press
     var keyPressed = e.which;
+    console.log("keyPressed: " + e.which);
+
+    //TODO consolidate screens code
+
+    if(mainmenu.inMenu){
+        mainmenu.executeKeyAction(e.which);
+        return;
+    }
+
+    if(highscore.inHighScore){
+        highscore.executeKeyAction(e.which);
+        return;
+    }
 
     // forward slash - prevent default "quick find" for firefox.
     // quotes - prevent quick find
     if (keyPressed == 191 || keyPressed == 222) {
         e.preventDefault();
     }
-
 
     //backspace pressed
     //go back to main menu
@@ -119,7 +129,7 @@ $(window).keydown(function (e) {
     //enter pressed
     //reset game
     if(keyPressed == 13){
-        //TODO reset
+        game.resetGame();
     }
 
     //shift (hold a piece)
@@ -147,9 +157,6 @@ $(window).keydown(function (e) {
         keyPressFunctions["isPressed"][keyPressed] = true;
 
         keyPressFunctions.activeKeys.push(keyPressed);
-
-        //TODO remove this
-        console.log("pressed:" + keyPressed);
 
         keyPressFunctions.executeKeyAction(keyPressed);
         //keyPressFunctions[keyPressed].call();

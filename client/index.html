@@ -22,6 +22,8 @@
 
 		<!-- Game Engine-->
 		<script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/screens/mainmenu.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/screens/highscore.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/game.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/video/draw.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/audio/sounds.js" type="text/javascript" charset="utf-8"></script>
@@ -34,12 +36,30 @@
 	    <div id="gamecontainer" >
 
 			<div id="mainscreen" class="gamelayer">
-				<span id="singleplayer10" onclick = "singleplayer.start10Lines();">10 Lines</span>
-				<span id="singleplayer100" onclick = "singleplayer.start40Lines();">40 Lines</span>
+				<div id="mainscreentextbox">
+					<p>Keyboard Falling Blocks Prototype</p>
+					<p>Version: Prototype</p>
+					<p>By LK00100100</p>
+					<p>&nbsp;</p>
+					<p>a) 10 Lines, No Gravity</p>
+					<p>b) 40 Lines, No Gravity</p>
+					<p>NOT IMPLEMENTED c) 10 Lines, Gravity</p>
+					<p>NOT IMPLEMENTED d) 40 Lines, Gravity</p>
+					<p>h) High Scores</p>
+					<p>g) Github</p>
+					<p>m) Manual</p>
+				</div>
 			</div>
 
-			<div id="aboutscreen" class="gamelayer">
-	            
+			<div id="highscorescreen" class="gamelayer">
+				<div id="highscores">
+					<p>High Scores</p>
+					<p>a) 10 Lines, No Gravity</p>
+					<p>b) 40 Lines, No Gravity</p>
+					<p>c) 10 Lines, Gravity</p>
+					<p>d) 40 Lines, Gravity</p>
+					<p>z) Back</p>
+				</div>
 	        </div>
 
 			<div id="gameinterfacescreen" class="gamelayer">
@@ -66,12 +86,11 @@
 	        </div>
 
 	    </div>
-		<br>( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°) 
-		<br>welcome to the KEYBOARD FALLING BLOCKS beta.
-		<br>pull up a chair, read the manual, and try erasing 10 blocks
-		<br><br>
-		<a href="./manual_READ_FIRST.txt">>>>READ THIS MANUAL FIRST<<<</a>
-		<br><br>
-		<a href="https://github.com/00100100/KeyboardFallingBlocks">>>>GITHUB<<<</a>
+		Please read the manual first (Press m)
+		<br>Check out the github (press G) and give it a star.
+		<br>( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)
+		<br>My high score:
+		<br>  10 lines = 31 seconds
+		<br>  40 lines = 131 seconds
 	</body>
 </html>

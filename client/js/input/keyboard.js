@@ -1,9 +1,9 @@
-/*
+/**
  * keyboard.js
  * Deals with all keyboard-related stuff
  */
 
-var keyPressFunctions = {
+var keyboard = {
 
     //the order of the 40 action keys.
     //rotate - clockwise # times
@@ -37,9 +37,7 @@ var keyPressFunctions = {
 
     //returns the column location for a key
     getKeyColumn: function(key, row) {
-
         return this.keyOrder[row].indexOf(key);
-
     },
 
     executeKeyAction: function(keyPressed){
@@ -53,20 +51,14 @@ var keyPressFunctions = {
 
     //shift, "hold" (if it wasn't recently used)
     shiftKeyFunction: function () {
-
-        if (game.justPressedHold)
-            return;
-
-        keyPressFunctions.nullifyCommands();
+        keyboard.nullifyCommands();
 
         game.commands.push({hold: true});
     },
 
     //space, "cancel"
     spaceKeyFunction: function () {  //space, "cancel", erase all commands
-        game.commandCancel = true;
-
-        keyPressFunctions.nullifyCommands();
+        keyboard.nullifyCommands();
     },
 
     /*
@@ -74,8 +66,7 @@ var keyPressFunctions = {
      * all commands in queue are not executed.
      */
     nullifyCommands: function () {
-
-        keyPressFunctions.activeKeys = [];
+        keyboard.activeKeys = [];
         game.commands = [];
     },
 
@@ -123,43 +114,44 @@ $(window).keydown(function (e) {
     //backspace pressed
     //go back to main menu
     if(keyPressed == 8){
-        //TODO main menu
+        game.goToMainMenu();
     }
 
     //enter pressed
     //reset game
     if(keyPressed == 13){
-        game.resetGame();
+        game.endAndResetGame();
     }
 
     //shift (hold a piece)
     if(keyPressed == 16){
-        keyPressFunctions.shiftKeyFunction();
-        return;
+        keyboard.shiftKeyFunction();
     }
 
     //space (cancel commands)
     if (keyPressed == 32) {
         console.log("space pressed");
 
-        keyPressFunctions.spaceKeyFunction();
-        return;
+        keyboard.spaceKeyFunction();
     }
 
     //if this key is not being currently pressed
 
     //if 40-key doesn't exist, leave
-    if(keyPressFunctions.isInKeyOrder(keyPressed) == false){
+    if(keyboard.isInKeyOrder(keyPressed) == false){
         return;
     }
 
-    if (keyPressFunctions["isPressed"][keyPressed] == false) {
-        keyPressFunctions["isPressed"][keyPressed] = true;
+    //40-key exists
+    if (keyboard["isPressed"][keyPressed] == false) {
+        keyboard["isPressed"][keyPressed] = true;
 
-        keyPressFunctions.activeKeys.push(keyPressed);
+        keyboard.nullifyCommands();
 
-        keyPressFunctions.executeKeyAction(keyPressed);
-        //keyPressFunctions[keyPressed].call();
+        keyboard.activeKeys.push(keyPressed);
+
+        keyboard.executeKeyAction(keyPressed);
+        //keyboard[keyPressed].call();
     }
 
 });
@@ -168,7 +160,7 @@ $(window).keydown(function (e) {
 $(window).keyup(function (e) {
 
     var keyPressed = e.which;
-    keyPressFunctions["isPressed"][keyPressed] = false;
+    keyboard["isPressed"][keyPressed] = false;
 
     //TODO disable this
     console.log("keyup:" + keyPressed);
@@ -177,21 +169,21 @@ $(window).keyup(function (e) {
     if (keyPressed == 16) {
         console.log("keyup:" + keyPressed + "CALL");
 
-        keyPressFunctions.shiftKeyFunction();
+        keyboard.shiftKeyFunction();
         return;
     }
 
     //if the key released isn't nullified
     //finalize the move and do a hard-drop
     //active hard-drop
-    if (keyPressFunctions.activeKeys.indexOf(keyPressed) != -1) {
+    if (keyboard.activeKeys.indexOf(keyPressed) != -1) {
 
         //all other keys are nullified.
-        keyPressFunctions.activeKeys = [];
+        keyboard.activeKeys = [];
         game.commands = [];
 
         //move
-        keyPressFunctions.executeKeyAction(keyPressed);
+        keyboard.executeKeyAction(keyPressed);
 
         //then hard drop
         game.commands.push({hardDropCommand: true});
@@ -199,10 +191,12 @@ $(window).keyup(function (e) {
 
 });
 
-//TODO init only what is in the array
 //init isPressed
-var numKeys = 200;
-var i;
-for(i = 0; i < numKeys; i++){
-    keyPressFunctions["isPressed"][i] = false;
+
+for(var row = 0; row < keyboard.keyOrder.length; row++){
+    for(var col = 0; col < keyboard.keyOrder[0].length; col++){
+        var key = keyboard.keyOrder[row][col];
+        keyboard["isPressed"][key] = false;
+    }
 }
+

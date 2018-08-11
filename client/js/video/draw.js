@@ -5,6 +5,17 @@
  */
 
 var draw = {
+
+    messageBoxX : 120,
+    messageBoxY : 130,
+    messageBoxHeight : 200,
+    messageBoxLength : 350,
+    enableMessageBox : false,
+    messageBoxMessage : "",
+
+    /**
+     * sets the draw order of things
+     */
     drawFrame : function() {
 
         // Clear the foreground canvas
@@ -18,11 +29,17 @@ var draw = {
 
         this.drawNextPieces();
 
+        this.drawGoal();
+
         this.drawTime();
 
         this.drawLinesCleared();
 
         this.drawHoldBox();
+
+        if(this.enableMessageBox == true){
+            this.drawMessageBox();
+        }
 
         //draw score
         //TODO score?
@@ -191,6 +208,10 @@ var draw = {
 
     },
 
+    drawGoal : function() {
+      $("#goal").html(game.goal);
+    },
+
     drawTime : function (){
         //draw time
         $('#time').html(game.time);
@@ -212,7 +233,38 @@ var draw = {
 
     drawMessageBox : function(){
 
+        game.foregroundContext.fillStyle = "#001100";
+        game.foregroundContext.strokeStyle = "#00ff00";	//green border
+        game.foregroundContext.lineWidth = 1;
 
+        game.foregroundContext.fillRect(
+            draw.messageBoxX
+            , draw.messageBoxY
+            , draw.messageBoxLength
+            , draw.messageBoxHeight);
+
+        game.foregroundContext.strokeRect(
+            draw.messageBoxX
+            , draw.messageBoxY
+            , draw.messageBoxLength
+            , draw.messageBoxHeight);
+
+        $("#messagebox").html(this.messageBoxMessage);
+
+    },
+
+    showMessageBox : function (message) {
+        this.messageBoxMessage = message;
+        this.enableMessageBox = true;
+
+        $("#messagebox").show();
+    },
+
+    hideMessageBox : function (){
+        this.messageBoxMessage = "";
+        this.enableMessageBox = false;
+
+        $("#messagebox").hide();
 
     },
 

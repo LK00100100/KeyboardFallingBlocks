@@ -19,7 +19,7 @@ var highscore = {
 
         //b
         if(keypress == 66){
-            
+
         }
         //c
         if(keypress == 67){

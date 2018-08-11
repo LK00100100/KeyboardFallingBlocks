@@ -97,7 +97,7 @@
     text-align:left;
 }
 
-#gameinterfacescreen #linesText {
+#gameinterfacescreen #goalText {
     width:120px;
     height:22px;
     position:absolute;
@@ -110,7 +110,7 @@
     text-align:left;
 }
 
-#gameinterfacescreen #lines {
+#gameinterfacescreen #goal {
     width:120px;
     height:22px;
     position:absolute;
@@ -123,7 +123,7 @@
     text-align:left;
 }
 
-#gameinterfacescreen #levelText {
+#gameinterfacescreen #linesText {
     width:120px;
     height:22px;
     position:absolute;
@@ -136,7 +136,7 @@
     text-align:left;
 }
 
-#gameinterfacescreen #level {
+#gameinterfacescreen #lines {
     width:120px;
     height:22px;
     position:absolute;
@@ -149,7 +149,7 @@
     text-align:left;
 }
 
-#gameinterfacescreen #scoreText {
+#gameinterfacescreen #levelText {
     width:120px;
     height:22px;
     position:absolute;
@@ -162,7 +162,7 @@
     text-align:left;
 }
 
-#gameinterfacescreen #score {
+#gameinterfacescreen #level {
     width:120px;
     height:22px;
     position:absolute;
@@ -175,8 +175,7 @@
     text-align:left;
 }
 
-
-#gameinterfacescreen #timeText {
+#gameinterfacescreen #scoreText {
     width:120px;
     height:22px;
     position:absolute;
@@ -189,7 +188,7 @@
     text-align:left;
 }
 
-#gameinterfacescreen #time {
+#gameinterfacescreen #score {
     width:120px;
     height:22px;
     position:absolute;
@@ -200,7 +199,48 @@
     font-size: 25px;
     font-family: 'Courier New', Courier, monospace;
     text-align:left;
+}
 
+#gameinterfacescreen #timeText {
+    width:120px;
+    height:22px;
+    position:absolute;
+    left:20px;
+    top:490px;
+    color: green;
+    overflow:hidden;
+    font-size: 25px;
+    font-family: 'Courier New', Courier, monospace;
+    text-align:left;
+}
+
+#gameinterfacescreen #time {
+    width:120px;
+    height:22px;
+    position:absolute;
+    left:20px;
+    top:520px;
+    color: green;
+    overflow:hidden;
+    font-size: 25px;
+    font-family: 'Courier New', Courier, monospace;
+    text-align:left;
+
+}
+
+#gameinterfacescreen #messagebox {
+    width:330px;
+    height:180px;
+    position:absolute;
+    left:130px;
+    top:140px;
+    color: green;
+    overflow:hidden;
+    font-size: 25px;
+    font-family: 'Courier New', Courier, monospace;
+    text-align:left;
+    word-wrap:break-word;
+    margin: 0px;
 }
 
 #gameinterfacescreen canvas{

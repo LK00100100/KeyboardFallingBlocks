@@ -12,7 +12,8 @@ var singleplayer = {
     },
 
     start10Lines: function () {
-        game.LINES_TO_WIN = 10;
+        //TODO fix this after testing
+        game.LINES_TO_WIN = 1;
 
         this.initStart();
     },
@@ -29,8 +30,6 @@ var singleplayer = {
         // Hide the starting menu layer
         $('.gamelayer').hide();
 
-        game.type = "singleplayer";
-
         game.resetGame();
 
         //animate the sprites, update date; 30FPS
@@ -44,12 +43,20 @@ var singleplayer = {
     //game's end() calls this.
     endGame: function () {
         game.running = false;
+
+
         clearInterval(game.animationInterval);
+
+
 
         //you won
         if (game.linesCleared >= game.LINES_TO_WIN) {
 
             //TODO fix this crap
+
+            draw.showMessageBox("Victory!<br>" +
+            "[ENTER] to continue.<br>" +
+            "[BACKSPACE] to quit.");
 
         }
         //you failed
@@ -65,5 +72,7 @@ var singleplayer = {
             });
             */
         }
+
+
     }
 };

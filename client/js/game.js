@@ -49,6 +49,7 @@ var game = {
     NEXT_PIECES_MAXSIZE: 7,
 
     //GAME INFO
+    goal: -1,
     time: 0,
     level: -1,
     score: -1,
@@ -95,6 +96,7 @@ var game = {
     //reset all game variables to square-0.
     resetGame: function () {
 
+        game.goal = game.LINES_TO_WIN;
         game.level = 1;
         game.score = 0;
         game.linesCleared = 0;
@@ -127,6 +129,8 @@ var game = {
         board.placePiece(game.currentPiece, game.currentPiece.row, game.currentPiece.col);
 
         board.generateGhostPiece();
+
+        draw.hideMessageBox();
     },
 
     startGame: function () {
@@ -376,6 +380,8 @@ var game = {
 
         game.linesCleared++;
 
+        game.calculateGoal();
+
         //if the number of lines cleared is now divisble by 10,
         //make the level speed faster
         if (game.linesCleared % 10 == 0) {
@@ -383,6 +389,15 @@ var game = {
             //game.incrementLevel();
         }
 
+
+
+    },
+
+    calculateGoal : function(){
+        game.goal = game.LINES_TO_WIN - game.linesCleared;
+
+        if(game.goal < 0)
+            game.goal = 0;
     },
 
     //note: if get a certain amount of lines and die on the same frame, it's a victory.
@@ -399,8 +414,35 @@ var game = {
 
     end: function () {
 
-        if (game.type == "singleplayer")
-            singleplayer.endGame();
+        singleplayer.endGame();
+
+    },
+
+    /**
+     * ends and restarts the game completely
+     */
+    endAndResetGame : function (){
+
+        game.end();
+
+        //TODO fix this to 10
+
+        if(game.LINES_TO_WIN == 1){
+            singleplayer.start10Lines();
+        }
+
+        if(game.LINES_TO_WIN == 40){
+            singleplayer.start40Lines();
+        }
+
+    },
+
+    goToMainMenu : function (){
+        game.end();
+        mainmenu.inMenu = true;
+
+        $('.gamelayer').hide();
+        $('#mainscreen').show();
 
     }
 

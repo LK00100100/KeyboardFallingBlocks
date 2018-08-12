@@ -15,6 +15,9 @@ var singleplayer = {
         //TODO fix this after testing
         game.LINES_TO_WIN = 1;
 
+        $("#levelText").hide();
+        $("#scoreText").hide();
+
         this.initStart();
     },
 
@@ -44,35 +47,21 @@ var singleplayer = {
     endGame: function () {
         game.running = false;
 
-
         clearInterval(game.animationInterval);
-
-
 
         //you won
         if (game.linesCleared >= game.LINES_TO_WIN) {
-
-            //TODO fix this crap
-
             draw.showMessageBox("Victory!<br>" +
-            "[ENTER] to continue.<br>" +
-            "[BACKSPACE] to quit.");
+                "[ENTER] to restart.<br>" +
+                "[\\] to quit.");
 
         }
         //you failed
         else {
-
-            /*
-            game.showMessageBox("Mission Failed.<br><br>Try again?", function () {
-                $('.gamelayer').hide();
-                singleplayer.start100Lines();
-            }, function () {
-                $('.gamelayer').hide();
-                $('#mainscreen').show();
-            });
-            */
+            draw.showMessageBox("Game Over<br>" +
+            "[ENTER] to restart.<br>" +
+            "[\\] to quit.");
         }
-
 
     }
 };

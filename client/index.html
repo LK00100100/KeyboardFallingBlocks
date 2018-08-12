@@ -34,6 +34,9 @@
 	</head>
 	<body>
 	    <div id="gamecontainer" >
+			<div id="loadingscreen" class="gamelayer">
+				<div id="loadingmessage"></div>
+			</div>
 
 			<div id="mainscreen" class="gamelayer">
 				<div id="mainscreentextbox">
@@ -48,6 +51,7 @@
 					<p>h) High Scores</p>
 					<p>g) Github</p>
 					<p>m) Manual</p>
+					<p>s) Settings</p>
 				</div>
 			</div>
 
@@ -58,9 +62,17 @@
 					<p>b) 40 Lines, No Gravity</p>
 					<p>c) 10 Lines, Gravity</p>
 					<p>d) 40 Lines, Gravity</p>
-					<p>z) Back</p>
+					<p>\) Back</p>
 				</div>
 	        </div>
+
+			<div id="settingsscreen" class="gamelayer">
+				<p>Settings</p>
+				<p id="settingsghost">g) Ghost Piece On</p>
+				<p id="settingsrolling">r) Rolling Keys Cancels</p>
+				<p id="settingskeydown">k) Keydown does hard drop</p>
+				<p>\) Back</p>
+			</div>
 
 			<div id="gameinterfacescreen" class="gamelayer">
 				<canvas id="gamebackgroundcanvas" height="640" width="640"></canvas>
@@ -84,10 +96,6 @@
 
 				<div id="messagebox"></div>
 			</div>
-
-	        <div id="loadingscreen" class="gamelayer">
-	            <div id="loadingmessage"></div>
-	        </div>
 
 	    </div>
 		Please read the manual first (Press m)

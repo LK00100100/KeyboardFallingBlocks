@@ -12,7 +12,7 @@ var keyboard = {
     keyOrder: [
         [49, 50, 51, 52, 53, 54, 55, 56, 57, 48],
         [81, 87, 69, 82, 84, 89, 85, 73, 79, 80],
-        [65, 83, 68, 70, 71, 72, 74, 75, 76, 186],
+        [65, 83, 68, 70, 71, 72, 74, 75, 76, 59],
         [90, 88, 67, 86, 66, 78, 77, 188, 190, 191]
     ],
 
@@ -111,9 +111,9 @@ $(window).keydown(function (e) {
         e.preventDefault();
     }
 
-    //backspace pressed
-    //go back to main menu
-    if(keyPressed == 8){
+
+    //\ - go back to main menu
+    if(keyPressed == 220){
         game.goToMainMenu();
     }
 

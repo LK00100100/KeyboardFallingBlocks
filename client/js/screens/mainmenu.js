@@ -34,12 +34,10 @@ var mainmenu = {
         }
         //h - high score
         if(keypress == 72){
-            mainmenu.inMenu = false;
+            mainmenu.hideMainMenu();
+
             highscore.inHighScore = true;
-
             $("#highscorescreen").show();
-            $("#mainscreen").hide();
-
         }
 
         //g - github
@@ -52,6 +50,20 @@ var mainmenu = {
             window.open("./manual_READ_FIRST.txt");
         }
 
+        //s - settings
+        if(keypress == 83){
+            mainmenu.hideMainMenu();
+
+            settings.inSettings = true;
+            $("#settingsscreen").show();
+
+        }
+
+    },
+
+    hideMainMenu : function (){
+        mainmenu.inMenu = false;
+        $("#mainscreen").hide();
     }
 
 };

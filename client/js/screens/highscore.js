@@ -30,14 +30,22 @@ var highscore = {
 
 
         }
-        //z - back to main menu
-        if(keypress == 90){
+        //\ - back to main menu
+        if(keypress == 220){
             highscore.inHighScore = false;
             mainmenu.inMenu = true;
 
             $("#highscorescreen").hide();
             $("#mainscreen").show();
         }
-    }
+    },
+
+    readHighScores : function(){
+
+        var scores = document.cookie;
+
+    },
 
 };
+
+highscore.readHighScores();

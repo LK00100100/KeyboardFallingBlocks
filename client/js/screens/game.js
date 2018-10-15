@@ -13,26 +13,6 @@ var game = {
     pieceDropTick: 0,		//automatic dropping time threshold.
     animationTimeout: -1, 	// 100 = 100 milliseconds or 10 times a second, i set it to 30 SPF
 
-    //DRAWING INFO
-    //TODO put this drawing info somewhere else
-    BLOCK_WIDTH: 25,
-    CURRENT_PIECE_X: -1,
-    CURRENT_PIECE_Y: -1,
-    DRAW_BOARD_X: 175,
-    DRAW_BOARD_Y: 0,
-    DRAW_BOARD_TOP_DRAWABLE_ROW: 0,	//the first row (top) we draw from.
-    DRAW_LINES_CLEARED_X: 215,
-    DRAW_LINES_CLEARED_Y: 280,
-    DRAW_GAME_TIMER_X: 215,
-    DRAW_GAME_TIMER_Y: 340,
-    DRAW_LEVEL_X: 215,
-    DRAW_LEVEL_Y: 400,
-    DRAW_NEXT_PIECE_X: 510,
-    DRAW_NEXT_PIECE_Y: 50,
-    DRAW_NEXT_PIECE_Y_GAP: 80,
-    DRAW_HOLD_PIECE_X: 30,
-    DRAW_HOLD_PIECE_Y: 60,
-
     //GAME INFO
     BOARD_ROWS: 25,			//total rows, including invisible ceiling. 0 is the top
     BOARD_CEILING_ROWS: 5,	//number of invisible ceiling rows
@@ -67,21 +47,9 @@ var game = {
     init: function () {
         loader.init();
         sounds.init();
-
-        game.backgroundCanvas = document.getElementById('gamebackgroundcanvas');
-        game.backgroundContext = game.backgroundCanvas.getContext('2d');
-
-        game.foregroundCanvas = document.getElementById('gameforegroundcanvas');
-        game.foregroundContext = game.foregroundCanvas.getContext('2d');
-
-        game.canvasWidth = game.backgroundCanvas.width;
-        game.canvasHeight = game.backgroundCanvas.height;
+        draw.init();
 
         board.initBoard();
-
-        //some final stuff
-        game.CURRENT_PIECE_X = game.DRAW_BOARD_X + (game.BLOCK_WIDTH * 11);
-        game.CURRENT_PIECE_Y = game.BLOCK_WIDTH / 2;
 
         //equals "seconds per frame"
         game.animationTimeout = 1000 / game.FPS;
@@ -131,13 +99,10 @@ var game = {
         game.running = true;
 
         draw.drawKeyAssist();
-        game.drawingLoop();
+
+        draw.drawingLoop();
 
         $('#gamemessages').html("");
-    },
-
-    drawingLoop: function () {
-        draw.drawFrame();
     },
 
     /**

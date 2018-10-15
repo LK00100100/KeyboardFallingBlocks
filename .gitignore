@@ -1,2 +1,4 @@
-client/.idea
+
 TODO-notes.txt
+*/.idea/
+.idea/*

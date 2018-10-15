@@ -2,9 +2,8 @@
  * main.js
  *
  * one of the first thing to be called
+ * also, common.js is loaded and called.
  */
-
-//note: common.js is also called
 
 $(window).load(function () {
     game.init();

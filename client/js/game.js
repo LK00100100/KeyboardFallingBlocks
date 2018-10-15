@@ -1,12 +1,8 @@
-/* game.js
+/**
+ *  game.js
  * holds all the information for the game state
  */
 
-$(window).load(function () {
-    game.init();
-
-    mainmenu.init();
-});
 
 var game = {
 
@@ -18,6 +14,7 @@ var game = {
     animationTimeout: -1, 	// 100 = 100 milliseconds or 10 times a second, i set it to 30 SPF
 
     //DRAWING INFO
+    //TODO put this drawing info somewhere else
     BLOCK_WIDTH: 25,
     CURRENT_PIECE_X: -1,
     CURRENT_PIECE_Y: -1,
@@ -71,9 +68,6 @@ var game = {
         loader.init();
         sounds.init();
 
-        $('.gamelayer').hide();
-        $('#mainscreen').show();
-
         game.backgroundCanvas = document.getElementById('gamebackgroundcanvas');
         game.backgroundContext = game.backgroundCanvas.getContext('2d');
 
@@ -96,14 +90,13 @@ var game = {
     //reset all game variables to square-0.
     resetGame: function () {
 
+        //reset stats
         game.goal = game.LINES_TO_WIN;
         game.level = 1;
         game.score = 0;
         game.linesCleared = 0;
         game.time = 0;
-
         game.currentTick = 0;
-
         game.commands = [];
 
         board.clearBoard();
@@ -134,8 +127,6 @@ var game = {
     },
 
     startGame: function () {
-        $('.gamelayer').hide();
-        $('#gameinterfacescreen').show();
 
         game.running = true;
 
@@ -161,8 +152,14 @@ var game = {
         game.currentTick++;
 
         //update timer
-        if (game.currentTick % 30 == 0)
-            game.time++;
+        //game.time += (game.currentTick / 30);
+        if (game.currentTick % 30 == 0){
+
+           // game.time++;
+        }
+
+        var frameSecond = (1 / game.FPS);
+        game.time += frameSecond;
 
         //process user keyboard inputs (in order)
         for (var i = 0; i < game.commands.length; i++) {
@@ -334,7 +331,6 @@ var game = {
             //see if it fits in the new place
             //place the piece in the new spot
 
-
             game.attemptToMoveCurrentPiece(game.currentPiece.row, command.col);
 
         }
@@ -389,8 +385,6 @@ var game = {
             //game.incrementLevel();
         }
 
-
-
     },
 
     calculateGoal : function(){
@@ -413,9 +407,7 @@ var game = {
     },
 
     end: function () {
-
         singleplayer.endGame();
-
     },
 
     /**
@@ -437,13 +429,18 @@ var game = {
 
     },
 
-    goToMainMenu : function (){
-        game.end();
-        mainmenu.inMenu = true;
-
+    showScreen : function () {
         $('.gamelayer').hide();
-        $('#mainscreen').show();
+        $('#gameinterfacescreen').show();
+    },
 
+    hideScreen : function(){
+        $('.gamelayer').hide();
+        $('#gameinterfacescreen').hide();
+    },
+
+    setKeyboard : function () {
+        keyboard.setKeyboard(keyGame);
     }
 
 };

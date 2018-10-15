@@ -214,7 +214,9 @@ var draw = {
 
     drawTime : function (){
         //draw time
-        $('#time').html(game.time);
+        var truncTime = Number.parseFloat(game.time).toFixed(3);
+
+        $('#time').html(truncTime);
     },
 
     drawLinesCleared : function() {

@@ -5,12 +5,6 @@
 
 var singleplayer = {
 
-    exit: function () {
-        // go back to the main screen
-        $('.gamelayer').hide();
-        $('#mainscreen').show();
-    },
-
     start10Lines: function () {
         //TODO fix this after testing
         game.LINES_TO_WIN = 1;
@@ -29,9 +23,6 @@ var singleplayer = {
 
     // Begin single player game
     initStart: function () {
-
-        // Hide the starting menu layer
-        $('.gamelayer').hide();
 
         game.resetGame();
 

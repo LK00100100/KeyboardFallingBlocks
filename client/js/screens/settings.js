@@ -8,9 +8,15 @@ var settings = {
 
     //version of save
     enableGhost : true,
-    rollingCancel : true,
+    rollingCancel : false,
     keyDownDoesHardDrop : false,
-    highScores : null,
+    highScores : [],
+    piecePreviewCount : 7,  //limit of 7
+
+    loadSettings : function(){
+        game.enableGhost = this.enableGhost;
+        game.NEXT_PIECES_MAXSIZE = this.piecePreviewCount;
+    },
 
     hideScreen : function(){
         $("#settingsscreen").hide();

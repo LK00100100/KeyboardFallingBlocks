@@ -1,7 +1,7 @@
 /**
- * boardHelper.js
+ * board.js
  *
- * does various things with pieces
+ * does various things with pieces and the board
  */
 
 var board = {
@@ -211,6 +211,9 @@ var board = {
     },
 
     generateGhostPiece : function() {
+
+        if(game.enableGhost == false)
+            return;
 
         //clone ghost piece
         game.ghostPiece = $.extend({}, game.currentPiece);

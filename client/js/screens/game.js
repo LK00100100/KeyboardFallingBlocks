@@ -1,6 +1,7 @@
 /**
- *  game.js
+ * game.js
  * holds all the information for the game state
+ * does game calculations.
  */
 
 
@@ -36,6 +37,7 @@ var game = {
     commands: [],				//stores player commands. only processed during the "waiting command" stage
     currentPiece: null,
     ghostPiece: null,
+    enableGhost: true,
     currentPieceOriginal: null,	//the starting position/orientation for currentPiece.
     nextPieces: [],
     justPressedHold: false,		//to ensure that we don't press hold infinitely. only once per drop.
@@ -50,6 +52,8 @@ var game = {
         draw.init();
 
         board.initBoard();
+
+        settings.loadSettings();
 
         //equals "seconds per frame"
         game.animationTimeout = 1000 / game.FPS;

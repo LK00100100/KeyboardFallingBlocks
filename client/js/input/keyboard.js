@@ -16,6 +16,9 @@ var keyboard = {
 //keydown actions
 $(window).keydown(function (e) {
 
+    if(keyboard.currentKeyboard == null)
+        return;
+
     //get the button press
     var keyPressed = e.which;
     console.log("keyPressed: " + e.which);
@@ -26,6 +29,9 @@ $(window).keydown(function (e) {
 
 //keyup actions
 $(window).keyup(function (e) {
+
+    if(keyboard.currentKeyboard == null)
+        return;
 
     var keyPressed = e.which;
     console.log("keyup: " + keyPressed);

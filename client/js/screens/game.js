@@ -53,14 +53,14 @@ var game = {
 
         board.initBoard();
 
-        settings.loadSettings();
-
         //equals "seconds per frame"
         game.animationTimeout = 1000 / game.FPS;
     },
 
     //reset all game variables to square-0.
     resetGame: function () {
+
+        settings.loadSettings();
 
         //reset stats
         game.goal = game.LINES_TO_WIN;
@@ -114,6 +114,7 @@ var game = {
      * this does the game calculations
      */
     animationLoop: function () {
+        //note: careful when you use the "this" keyword in this method.
 
         if (!game.running)
             return;
@@ -128,7 +129,8 @@ var game = {
         }
 
         var frameSecond = (1 / game.FPS);
-        game.time += frameSecond;
+
+        game.setTimer(frameSecond);
 
         //process user keyboard inputs (in order)
         for (var i = 0; i < game.commands.length; i++) {
@@ -145,6 +147,18 @@ var game = {
 
         //game.movementButtonWasPressed = false;
         //}
+
+    },
+
+    setTimer : function (deltaTime) {
+
+        if(game.time == 9999.99)
+            return;
+
+        game.time += deltaTime;
+
+        if(game.time > 9999.99)
+            game.time = 9999.99;
 
     },
 

@@ -12,6 +12,12 @@
 	display:none;
 }
 
+p {
+    font-family: ‘Courier New’, Courier, monospace;
+    color:green;
+    font-size: 20px;
+}
+
 /* Game Starting Menu Screen */
 #mainscreentextbox p {
     width: 630px;
@@ -20,7 +26,6 @@
     margin-left: 10px;
     font-family: ‘Courier New’, Courier, monospace;
     font-size: 20px;
-    color:green;
     display:block;
     word-wrap:break-word
 }
@@ -30,9 +35,15 @@
     margin-top: 5px;
     margin-bottom: 0px;
     margin-left: 10px;
-    font-family: ‘Courier New’, Courier, monospace;
-    font-size: 20px;
-    color:green;
+    display:block;
+    word-wrap:break-word
+}
+
+#settingsscreen p {
+    width: 630px;
+    margin-top: 5px;
+    margin-bottom: 0px;
+    margin-left: 10px;
     display:block;
     word-wrap:break-word
 }

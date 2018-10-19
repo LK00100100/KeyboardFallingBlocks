@@ -9,7 +9,8 @@ var screenManager = {
     currentScreen : mainmenu,
 
     /**
-     * set the next screen and show the ui elements
+     * set the next screen and show the ui elements.
+     * also set the keyboard
      *
      * @param nextScreen
      */

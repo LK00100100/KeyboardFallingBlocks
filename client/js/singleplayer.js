@@ -18,6 +18,9 @@ var singleplayer = {
     start40Lines: function () {
         game.LINES_TO_WIN = 40;
 
+        $("#levelText").hide();
+        $("#scoreText").hide();
+
         this.initStart();
     },
 

@@ -21,12 +21,14 @@
 		<script src="js/pieces/pieceS.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/pieces/pieceT.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/pieces/pieceZ.js" type="text/javascript" charset="utf-8"></script>
-		<script src="js/pieces/pieceFactory.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/pieceGenerators/pieceGeneratorRandom.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/pieceGenerators/pieceGeneratorBag.js" type="text/javascript" charset="utf-8"></script>
 
 		<!-- Game Engine-->
 		<script src="js/common.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/screens/mainmenu.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/screens/highscore.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/screens/screenManager.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/screens/settings.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/screens/game.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/video/draw.js" type="text/javascript" charset="utf-8"></script>
@@ -37,11 +39,10 @@
 		<script src="js/input/keyMainMenu.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/input/keySettings.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/singleplayer.js" type="text/javascript" charset="utf-8"></script>
-		<script src="js/data/cookies.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/io/cookies.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/board.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/main.js" type="text/javascript" charset="utf-8"></script>
-		<script src="js/screens/settings.js" type="text/javascript" charset="utf-8"></script>
-		<script src="js/screens/screenManager.js" type="text/javascript" charset="utf-8"></script>
+
 
 	</head>
 	<body>
@@ -56,8 +57,9 @@
 					<p>&nbsp;</p>
 					<p>a) (in TEST) 1 Lines, No Gravity</p>
 					<p>b) <font color="red">(play this)</font> 40 Lines, No Gravity</p>
-					<p>NOT IMPLEMENTED c) 10 Lines, Gravity</p>
-					<p>NOT IMPLEMENTED d) 40 Lines, Gravity</p>
+
+					<!--<p>NOT IMPLEMENTED c) 10 Lines, Gravity</p>-->
+					<!--<p>NOT IMPLEMENTED d) 40 Lines, Gravity</p>-->
 					<p>&nbsp;</p>
 					<p>h) High Scores</p>
 					<p>g) Github</p>
@@ -83,6 +85,7 @@
 				<p id="settingsRolling">r) Rolling Keys Cancels</p>
 				<p id="settingsKeyDownHardDrop">h) Keydown does hard drop</p>
 				<p id="settingsPreviewCount">p) Preview Count : </p>
+				<p id="settingsPieceGenerator">i) Piece Generator: </p>
 				<p>\) Back</p>
 			</div>
 

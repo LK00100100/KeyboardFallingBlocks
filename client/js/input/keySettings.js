@@ -30,6 +30,11 @@ var keySettings = {
             settings.incrementPiecePreview();
         }
 
+        //i - preview count
+        if (keyPressed == 73) {
+            settings.togglePieceGenerator();
+        }
+
         //"\"
         if (keyPressed == 220) {
             screenManager.setScreenAndKeyboard(mainmenu);

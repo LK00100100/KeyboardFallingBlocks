@@ -42,6 +42,7 @@ var game = {
     nextPieces: [],
     justPressedHold: false,		//to ensure that we don't press hold infinitely. only once per drop.
     gameOver: false,
+    pieceGenerator : pieceGeneratorRandom,
 
 
     // Start pre-loading assets.
@@ -74,7 +75,10 @@ var game = {
         board.clearBoard();
 
         //get the current piece and a copy.
-        game.currentPieceOriginal = pieceFactory.generateRandomPieceSizeFour();
+        game.currentPieceOriginal = pieceS;
+        while(game.currentPieceOriginal.pieceType == "PieceS" || game.currentPieceOriginal.pieceType == "PieceZ")
+            game.currentPieceOriginal = this.pieceGenerator.generateRandomPiece();
+
         game.setPieceInStartPosition(game.currentPieceOriginal);
         game.currentPiece = $.extend({}, game.currentPieceOriginal);
 
@@ -82,7 +86,7 @@ var game = {
         var pieceTemp;
         game.nextPieces = [];
         for (var i = 0; i < game.NEXT_PIECES_MAXSIZE; i++) {
-            pieceTemp = pieceFactory.generateRandomPieceSizeFour();
+            pieceTemp = this.pieceGenerator.generateRandomPiece();
             game.setPieceInStartPosition(pieceTemp);
             game.nextPieces.push(pieceTemp);
         }
@@ -261,7 +265,7 @@ var game = {
         game.currentPiece = $.extend({}, game.currentPieceOriginal);
 
         //add a new piece to the queue.
-        var pieceTemp = pieceFactory.generateRandomPieceSizeFour();
+        var pieceTemp = this.pieceGenerator.generateRandomPiece();
         game.setPieceInStartPosition(pieceTemp);
         game.nextPieces.push(pieceTemp);
 
@@ -346,8 +350,18 @@ var game = {
         board.placePiece(game.currentPiece, game.currentPiece.row, game.currentPiece.col);
 
         //if the "red line" has been breached, it is all over
-        if (game.isGameOver())
+        if (game.isGameOver()) {
             game.end();
+
+            //cleared enough lines
+            if (game.linesCleared >= game.LINES_TO_WIN) {
+
+                //update highscore
+                highscore.updateHighScore(game.time);
+                highscore.printScores();
+            }
+
+        }
 
     },
 

@@ -11,12 +11,16 @@ var settings = {
     rollingCancel : false,
     keyDownDoesHardDrop : false,
     highScores : [],
-    piecePreviewCount : 7,  //limit of 7
-    PIECE_PREVIEW_MAX: 7,  //limit of 7
+    piecePreviewCount : 7,
+    PIECE_PREVIEW_MAX: 7,  //limit of 7 (do not increase)
+    pieceGenerator : pieceGeneratorBag,
 
     loadSettings : function(){
         game.enableGhost = this.enableGhost;
         game.NEXT_PIECES_MAXSIZE = this.piecePreviewCount;
+
+        game.pieceGenerator = this.pieceGenerator;
+
     },
 
     incrementPiecePreview : function () {
@@ -43,10 +47,24 @@ var settings = {
         if(this.keyDownDoesHardDrop)
             this.setTextColor("#settingsKeyDownHardDrop", "green");
 
+        $("#settingsPieceGenerator").text("i) Piece Generator: : " + this.pieceGenerator.name);
+
     },
 
     setTextColor : function (id, color){
         $(id).css("color", color);
+    },
+
+    togglePieceGenerator : function(){
+
+        if(this.pieceGenerator == pieceGeneratorBag){
+            this.pieceGenerator = pieceGeneratorRandom;
+        }
+        else{
+            this.pieceGenerator = pieceGeneratorBag;
+        }
+
+
     },
 
     hideScreen : function(){

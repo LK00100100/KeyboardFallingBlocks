@@ -31,9 +31,13 @@ var cookies = {
     writeSettingsCookies : function (){
         document.cookie = "";
 
+
+        
         //set or else it'll expire when the browser closes
         //expires=date
     }
+
+
 
 
 };

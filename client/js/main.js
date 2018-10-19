@@ -6,6 +6,11 @@
  */
 
 $(window).load(function () {
+
+    if(window.mobileAndTabletcheck()){
+        window.location.replace("./error.html");
+    }
+
     game.init();
 
     screenManager.setScreenAndKeyboard(mainmenu);

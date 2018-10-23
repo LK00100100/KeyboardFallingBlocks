@@ -129,11 +129,19 @@ var keyGame = {
         if (keyGame["isPressed"][keyPressed] == false) {
             keyGame["isPressed"][keyPressed] = true;
 
-            keyGame.nullifyCommands();
+            if(game.rollingCancel)
+                keyGame.nullifyCommands();
 
-            keyGame.activeKeys.push(keyPressed);
+            if(game.keyDownDoesHardDrop == false) {
+                keyGame.activeKeys.push(keyPressed);
+            }
 
             keyGame.executeKeyAction(keyPressed);
+
+            //then hard drop (if enabled)
+            if(game.keyDownDoesHardDrop){
+                game.commands.push({hardDropCommand: true});
+            }
         }
 
     },

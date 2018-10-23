@@ -12,9 +12,9 @@ var keyMainMenu = {
 
         //a
         if(keyPressed == 65){
-            screenManager.setScreenAndKeyboard(game);
+            //screenManager.setScreenAndKeyboard(game);
 
-            singleplayer.start10Lines();
+            //singleplayer.start1Lines();
         }
 
         //b

@@ -5,7 +5,7 @@
 
 var singleplayer = {
 
-    start10Lines: function () {
+    start1Lines: function () {
         //TODO fix this after testing
         game.LINES_TO_WIN = 1;
 

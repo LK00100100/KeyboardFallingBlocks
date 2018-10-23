@@ -44,6 +44,8 @@ var game = {
     gameOver: false,
     pieceGenerator : pieceGeneratorRandom,
     newHighScore : false,
+    rollingCancel : false,
+    keyDownDoesHardDrop : false,
 
 
     // Start pre-loading assets.
@@ -181,9 +183,7 @@ var game = {
         //if hold piece pressed and we can activate it.
         if (command.hold && game.justPressedHold == false) {
 
-
             //TODO make this more efficient later?
-
 
             game.holdPieceCommand();
 

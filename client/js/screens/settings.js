@@ -8,7 +8,7 @@ var settings = {
 
     //version of save
     enableGhost : true,
-    rollingCancel : false,
+    rollingCancel : true,
     keyDownDoesHardDrop : false,
     highScores : [],
     piecePreviewCount : 7,
@@ -16,11 +16,12 @@ var settings = {
     pieceGenerator : pieceGeneratorBag,
 
     loadSettings : function(){
+
         game.enableGhost = this.enableGhost;
         game.NEXT_PIECES_MAXSIZE = this.piecePreviewCount;
-
         game.pieceGenerator = this.pieceGenerator;
-
+        game.rollingCancel = this.rollingCancel;
+        game.keyDownDoesHardDrop = this.keyDownDoesHardDrop;
     },
 
     incrementPiecePreview : function () {

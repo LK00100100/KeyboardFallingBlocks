@@ -11,6 +11,8 @@ $(window).load(function () {
         window.location.replace("./error.html");
     }
 
+    cookies.readCookies();
+
     game.init();
 
     screenManager.setScreenAndKeyboard(mainmenu);

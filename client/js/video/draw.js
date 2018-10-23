@@ -1,7 +1,7 @@
 /**
  * draw.js
  *
- * handles rendering various things on the screen.
+ * handles rendering various things on the game screen.
  */
 
 var draw = {
@@ -269,6 +269,9 @@ var draw = {
 
     },
 
+    /**
+     * this is called to start the loop of drawing.
+     */
     drawingLoop : function (){
         draw.drawFrame();
     },

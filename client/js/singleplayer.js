@@ -43,18 +43,37 @@ var singleplayer = {
 
         clearInterval(game.animationInterval);
 
+        var highScoreText = "";
+        var score;
+        for(var i = 0; i < highscore.scores.length; i++){
+
+            score = Number.parseFloat(highscore.scores[i]).toFixed(2);
+
+            if(game.newHighScore == true && i == 0){
+                highScoreText += "<font color=\"red\">" + (i + 1) + ": " + score + "</font><br>";
+            }
+            else
+                highScoreText += (i + 1) + ": " + score + "<br>";
+
+        }
+
         //you won
         if (game.linesCleared >= game.LINES_TO_WIN) {
+
+
             draw.showMessageBox("Victory!<br>" +
                 "[ENTER] to restart.<br>" +
-                "[\\] to quit.");
+                "[\\] to quit.<br>" +
+                highScoreText
+            );
 
         }
         //you failed
         else {
             draw.showMessageBox("Game Over<br>" +
             "[ENTER] to restart.<br>" +
-            "[\\] to quit.");
+            "[\\] to quit.<br>" +
+            highScoreText);
         }
 
     }

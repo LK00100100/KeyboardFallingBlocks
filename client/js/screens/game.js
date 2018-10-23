@@ -43,6 +43,7 @@ var game = {
     justPressedHold: false,		//to ensure that we don't press hold infinitely. only once per drop.
     gameOver: false,
     pieceGenerator : pieceGeneratorRandom,
+    newHighScore : false,
 
 
     // Start pre-loading assets.
@@ -71,6 +72,7 @@ var game = {
         game.time = 0;
         game.currentTick = 0;
         game.commands = [];
+        game.newHighScore = false;
 
         board.clearBoard();
 
@@ -351,15 +353,21 @@ var game = {
 
         //if the "red line" has been breached, it is all over
         if (game.isGameOver()) {
-            game.end();
 
             //cleared enough lines
             if (game.linesCleared >= game.LINES_TO_WIN) {
 
-                //update highscore
                 highscore.updateHighScore(game.time);
                 highscore.printScores();
+
+                //new high score
+                if(highscore.scores[0] == game.time){
+                    game.newHighScore = true;
+                }
+
             }
+
+            game.end();
 
         }
 

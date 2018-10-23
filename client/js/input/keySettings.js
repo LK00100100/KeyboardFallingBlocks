@@ -37,6 +37,8 @@ var keySettings = {
 
         //"\"
         if (keyPressed == 220) {
+            cookies.writeCookies();
+
             screenManager.setScreenAndKeyboard(mainmenu);
         }
 

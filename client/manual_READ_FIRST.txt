@@ -1,34 +1,31 @@
-keyboard falling blocks (KFB) manual - incomplete
+Keyboard Falling Blocks (KFB) manual
 
-
-Play on Chrome
+Tested on Chrome
 
 firefox has a problem.
-	bug: press "/" then "," then press space.
-	space isn't hit
-
-BETA TESTING
+	bug: hold "/" then hold "." then press space.
+	Release keys. It acts as if space wasn't hit.
 
 =====
-intro and theory
+Intro and Theory
 =====
 
-this is based off a certain game that shall not be named
-due to political reasons. so we shall use "KFB" to refer
+This is based off a certain game that shall not be named
+due to "reasons." So we shall use "KFB" to refer
 to this game.
 
-the whole purpose of KFB is that in theory you can play
+The whole purpose of KFB is that in theory you can play
 faster if you can get past the ridiculous learning curve.
-in old falling blocks game, if you wanted to rotate clockwise
+In old falling blocks game, if you wanted to rotate clockwise
 2 times and place the current piece in the 0th column, you'd
 have to press: clockwise, clockwise, left, left, left).
 
-with KFB, you just have to press 1 button!
+With KFB, you just have to press 1 button!
 
 =====
-the keyboard
+The Keyboard
 =====
-key press down or up activates an action
+Key press down or up activates an action
 
 some easy keys to memorize.
 
@@ -45,22 +42,22 @@ q,w,e,r,t,y,u,i,o,p
 a,s,d,f,g,h,j,k,l,;
 z,x,c,v,b,n,m,,,.,/
 
-each row represents a number of rotations:
+Each row represents a number of rotations:
 row 1 = 0 clockwise rotations
 row 2 = 1 clockwise rotations
 row 3 = 2 clockwise rotations
 row 4 = 3 clockwise rotations
 
-each column represents where the upper left corner of the
+Each column represents where the upper left corner of the
 current piece should be.
-so if you press 1 (first column), then the current piece
+So if you press 1 (first column), then the current piece
 will be teleported to that column with 0 rotations.
 
-pressing L will attempt to shove the current piece to the
+Pressing 'L' will attempt to shove the current piece to the
 9th column with 2 rotations. If the piece is out of bounds,
-it will be gently nudged back in. L is not "second column" from
-the right, which may be confusing. some keys will have the
-same effect due to this. but the original "upper-left corner
+it will be gently nudged back in. 'L' is not "second column" from
+the right, which may be confusing. Some keys will have the
+same effect due to this. But the original "upper-left corner
 column" rule will stay.
 
 Key down will place the current piece in a sort of "preview"
@@ -85,32 +82,45 @@ Any other key will work.
 Try the game out
 
 =====
-game cycle
+Game Cycle
 =====
 
-the game operates at 30 frames per second (FPS). at each frame,
+The game operates at 30 frames per second (FPS). at each frame,
 the following operation takes place.
 
 HOLD > cancel (if no hold) > command (if none of the above).
 
-commands are pushed in whenever javascript gets the keypress
-down or up event. they are executed in the "game processing loop"
+Commands are pushed in whenever javascript gets the keypress
+down or up event. They are executed in the "game processing loop"
 as a queue. whatever came in first, is executed first.
 
-there is no gravity due to the difficulty of this game and there
-will never be gravity. it is all a race against time.
+There is no gravity due to the difficulty of this game.
+It is all a race against time.
 
-this game currently features 10 lines mode.
+This game currently features 40 lines mode.
 
-initially, i was going to be 100 lines mode, but with my
-estimates, that would take 15 minutes to beat.
+=====
+Settings
+=====
+- Rolling Cancel : when you hold one key, and then hold another key down.
+	The first key will be cancelled.
+- Keydown Does Hard Drop : Keydown does hard drop.
+- Piece Preview Amount : Piece 
+- Ghost Piece: turns on the piece preview after drop.
+- Piece Generator
+	- random - all pieces have an equal chance of spawning
+	- 7-bag - all 7 pieces are placed in a bag. They are randomly taken out.
+		when the bag is empty, place the 7 pieces back in there, repeat.
+- This game dpes not start out with the S/Z piece.
 
-this is not good for testing purposes.
-
-please return all feed back to me.
-
-====
-credits
+=====
+Misc
 =====
 
-send your mail to LK00100100 @ g-mail dot com
+Cookies expire after 1 year.
+It stores game-settings and high scores.
+
+=====
+credits
+=====
+Send your mail to LK00100100 @ g-mail dot com

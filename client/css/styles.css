@@ -66,7 +66,7 @@ p {
 
 /* Game Interface Screen */
 #gameinterfacescreen {
-    background: url(../images/mainInterface.png) no-repeat;
+    background: url(../images/maininterface.png) no-repeat;
 }
 #gameinterfacescreen #keyAssist {
     z-index:2;

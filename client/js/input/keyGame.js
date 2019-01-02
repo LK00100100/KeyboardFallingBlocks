@@ -59,7 +59,12 @@ var keyGame = {
 
     //space, "cancel"
     spaceKeyFunction: function () {  //space, "cancel", erase all commands
-        this.nullifyCommands();
+        if (game.spaceDoesHardDrop) {
+            game.commands.push({hardDropCommand: true});
+	}
+	else {
+	    this.nullifyCommands();
+	}
     },
 
     /*
@@ -135,13 +140,14 @@ var keyGame = {
             if(game.keyDownDoesHardDrop == false) {
                 keyGame.activeKeys.push(keyPressed);
             }
-
+            
             keyGame.executeKeyAction(keyPressed);
 
             //then hard drop (if enabled)
             if(game.keyDownDoesHardDrop){
                 game.commands.push({hardDropCommand: true});
             }
+
         }
 
     },
@@ -162,8 +168,9 @@ var keyGame = {
 
         //if the key released isn't nullified
         //finalize the move and do a hard-drop
-        //active hard-drop
-        if (this.activeKeys.indexOf(keyPressed) != -1) {
+        //active hard-drop. Only works if
+	//space does not do hard drop.
+        if (this.activeKeys.indexOf(keyPressed) != -1 && !game.spaceDoesHardDrop) {
 
             //all other keys are nullified.
             this.activeKeys = [];

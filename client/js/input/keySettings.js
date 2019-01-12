@@ -25,6 +25,11 @@ var keySettings = {
             settings.keyDownDoesHardDrop = !settings.keyDownDoesHardDrop;
         }
 
+	//s - space harddrop
+	if (keyPressed == 83) {
+            settings.spaceDoesHardDrop = !settings.spaceDoesHardDrop;
+	}
+
         //p - preview count
         if (keyPressed == 80) {
             settings.incrementPiecePreview();

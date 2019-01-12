@@ -23,6 +23,19 @@ have to press: clockwise, clockwise, left, left, left).
 With KFB, you just have to press 1 button!
 
 =====
+Gameplay Modes
+=====
+There are two main modes of gameplay. For beginners, it is
+recommended to activate "Space does hard drop". This will
+allow you to position pieces using the keyboard, then drop
+them by pressing space.
+
+Disabling the "Space does hard drop" option causes the
+rules below to be activated. These rules will allow you to
+drop pieces with only one keypress each, without having to
+press the spacebar to drop pieces.
+
+=====
 The Keyboard
 =====
 Key press down or up activates an action

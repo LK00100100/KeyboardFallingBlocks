@@ -10,6 +10,7 @@ var settings = {
     enableGhost : true,
     rollingCancel : true,
     keyDownDoesHardDrop : false,
+    spaceDoesHardDrop : false,
     highScores : [],
     piecePreviewCount : 7,
     PIECE_PREVIEW_MAX: 7,  //limit of 7 (do not increase)
@@ -22,6 +23,7 @@ var settings = {
         game.pieceGenerator = this.pieceGenerator;
         game.rollingCancel = this.rollingCancel;
         game.keyDownDoesHardDrop = this.keyDownDoesHardDrop;
+	game.spaceDoesHardDrop = this.spaceDoesHardDrop;
     },
 
     incrementPiecePreview : function () {
@@ -36,6 +38,7 @@ var settings = {
         this.setTextColor("#settingsGhost", "red");
         this.setTextColor("#settingsRolling", "red");
         this.setTextColor("#settingsKeyDownHardDrop", "red");
+	this.setTextColor("#settingsSpaceDoesHardDrop", "red");
 
         $("#settingsPreviewCount").text("p) Preview Count : " + this.piecePreviewCount);
 
@@ -47,6 +50,9 @@ var settings = {
 
         if(this.keyDownDoesHardDrop)
             this.setTextColor("#settingsKeyDownHardDrop", "green");
+
+	if(this.spaceDoesHardDrop)
+	    this.setTextColor("#settingsSpaceDoesHardDrop", "green");
 
         $("#settingsPieceGenerator").text("i) Piece Generator: : " + this.pieceGenerator.name);
 

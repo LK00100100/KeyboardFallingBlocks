@@ -57,6 +57,11 @@ var cookies = {
         else
             settings.keyDownDoesHardDrop = false;
 
+        if(this.dict["spaceHard"] == "1")
+            settings.spaceDoesHardDrop = true;
+        else
+            settings.spaceDoesHardDrop = false;
+
         if(this.dict["piecePreview"] != null)
             settings.piecePreviewCount = parseInt(this.dict["piecePreview"]);
 
@@ -108,6 +113,11 @@ var cookies = {
             document.cookie = "keydownHard=1";
         else
             document.cookie = "keydownHard=0";
+
+        if(settings.spaceDoesHardDrop)
+            document.cookie = "spaceHard=1";
+        else
+            document.cookie = "spaceHard=0";
 
         document.cookie = "piecePreview=" + settings.piecePreviewCount;
 

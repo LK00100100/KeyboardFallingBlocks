@@ -46,6 +46,7 @@ var game = {
     newHighScore : false,
     rollingCancel : false,
     keyDownDoesHardDrop : false,
+    spaceDoesHardDrop : false,
 
 
     // Start pre-loading assets.

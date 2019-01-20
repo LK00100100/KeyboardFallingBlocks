@@ -66,7 +66,7 @@ var game = {
     //reset all game variables to square-0.
     resetGame: function () {
 
-        screenSettings.loadSettings();
+        settings.loadSettings();
 
         //reset stats
         game.goal = game.LINES_TO_WIN;

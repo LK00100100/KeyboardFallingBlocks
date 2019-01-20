@@ -15,15 +15,6 @@ var settings = {
     PIECE_PREVIEW_MAX: 7,  //limit of 7 (do not increase)
     pieceGenerator : pieceGeneratorBag,
 
-    loadDefaultSettings : function (){
-        settings.enableGhost = true;
-        settings.rollingCancel = true;
-        settings.keyDownDoesHardDrop = false;
-        settings.spaceDoesHardDrop = false;
-        settings.piecePreviewCount = 7;
-        settings.pieceGenerator = pieceGeneratorBag;
-    },
-
     loadSettings : function(){
 
         game.enableGhost = settings.enableGhost;
@@ -35,6 +26,7 @@ var settings = {
     },
 
     incrementPiecePreview : function () {
+
         if(settings.piecePreviewCount == settings.PIECE_PREVIEW_MAX)
             settings.piecePreviewCount = 1;
         else

@@ -7,7 +7,6 @@
 var cookies = {
 
     dict : {},
-    cookiesLoaded : false,
 
     /**
      * assumed: keys and values do not use '=' or ';'
@@ -80,7 +79,6 @@ var cookies = {
             highscore.loadHighScores(scores);
         }
 
-        cookiesLoaded = true;
     },
 
     saveCookies : function (){

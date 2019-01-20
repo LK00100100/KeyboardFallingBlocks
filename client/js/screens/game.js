@@ -12,6 +12,7 @@ var game = {
     currentTick: 0,
     tickTimePieceDrop: 0,	//drop timer counter
     pieceDropTick: 0,		//automatic dropping time threshold.
+    animationInterval: -1,
     animationTimeout: -1, 	// 100 = 100 milliseconds or 10 times a second, i set it to 30 SPF
 
     //GAME INFO
@@ -65,7 +66,7 @@ var game = {
     //reset all game variables to square-0.
     resetGame: function () {
 
-        settings.loadSettings();
+        screenSettings.loadSettings();
 
         //reset stats
         game.goal = game.LINES_TO_WIN;

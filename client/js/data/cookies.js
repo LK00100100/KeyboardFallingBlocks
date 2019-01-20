@@ -8,22 +8,6 @@ var cookies = {
 
     dict : {},
 
-    //note: chrome does not like cookie-reading/writing when doing it from file://
-    readCookies : function (){
-
-        var cookie = document.cookie;
-
-        if(cookie.length == 0){
-            console.log("No cookies");
-            return;
-        }
-
-        this.convertCookieStringToDictionary(cookie);
-
-        this.loadCookies();
-
-    },
-
     /**
      * assumed: keys and values do not use '=' or ';'
      *
@@ -37,10 +21,22 @@ var cookies = {
             keyVal = cookie[i].split("=");
             this.dict[keyVal[0].trim()] = keyVal[1];
         }
-
     },
 
+    /**
+     * puts this dict into settings
+     */
+    //note: chrome does not like cookie-reading/writing when doing it from file://
     loadCookies : function () {
+
+        var cookie = document.cookie;
+
+        if(cookie.length == 0){
+            console.log("No cookies");
+            return;
+        }
+
+        this.convertCookieStringToDictionary(cookie);
 
         if(this.dict["ghost"] == "1")
             settings.enableGhost = true;
@@ -81,10 +77,9 @@ var cookies = {
             highscore.loadHighScores(scores);
         }
 
-
     },
 
-    writeCookies : function (){
+    saveCookies : function (){
         //Some browsers will not let you delete a cookie if you don't specify the path.
         document.cookie = "path=";
 

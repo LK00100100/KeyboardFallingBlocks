@@ -30,7 +30,7 @@ var keyHighScore = {
         }
         //\ - back to main menu
         if(keyPressed == 220){
-            screenManager.setScreenAndKeyboard(mainmenu);
+            screenManager.setScreenAndKeyboard(screenMainMenu);
         }
     },
 

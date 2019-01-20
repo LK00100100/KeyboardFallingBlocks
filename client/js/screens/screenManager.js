@@ -6,7 +6,7 @@
 
 var screenManager = {
 
-    currentScreen : mainmenu,
+    currentScreen : screenMainMenu,
 
     /**
      * set the next screen and show the ui elements.

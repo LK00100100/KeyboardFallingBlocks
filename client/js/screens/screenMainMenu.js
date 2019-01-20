@@ -4,7 +4,7 @@
  * main menu screen
  */
 
-var mainmenu = {
+var screenMainMenu = {
 
     hideScreen : function (){
         $("#mainscreen").hide();

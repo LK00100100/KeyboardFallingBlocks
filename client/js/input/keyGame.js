@@ -103,7 +103,7 @@ var keyGame = {
         //\ - go back to main menu
         if(keyPressed == 220){
             game.end();
-            screenManager.setScreenAndKeyboard(mainmenu);
+            screenManager.setScreenAndKeyboard(screenMainMenu);
         }
 
         //"enter" - reset game
@@ -160,8 +160,6 @@ var keyGame = {
 
         //hold (shift)
         if (keyPressed == 16) {
-            console.log("keyup:" + keyPressed + "CALL");
-
             this.shiftKeyFunction();
             return;
         }
@@ -169,7 +167,7 @@ var keyGame = {
         //if the key released isn't nullified
         //finalize the move and do a hard-drop
         //active hard-drop. Only works if
-	//space does not do hard drop.
+	    //space does not do hard drop.
         if (this.activeKeys.indexOf(keyPressed) != -1 && !game.spaceDoesHardDrop) {
 
             //all other keys are nullified.

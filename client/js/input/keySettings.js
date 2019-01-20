@@ -25,29 +25,29 @@ var keySettings = {
             settings.keyDownDoesHardDrop = !settings.keyDownDoesHardDrop;
         }
 
-	//s - space harddrop
-	if (keyPressed == 83) {
-            settings.spaceDoesHardDrop = !settings.spaceDoesHardDrop;
-	}
+        //s - space harddrop
+        if (keyPressed == 83) {
+                settings.spaceDoesHardDrop = !settings.spaceDoesHardDrop;
+        }
 
         //p - preview count
         if (keyPressed == 80) {
-            settings.incrementPiecePreview();
+            screenSettings.incrementPiecePreview();
         }
 
         //i - preview count
         if (keyPressed == 73) {
-            settings.togglePieceGenerator();
+            screenSettings.togglePieceGenerator();
         }
 
         //"\"
         if (keyPressed == 220) {
-            cookies.writeCookies();
+            cookies.saveCookies();
 
-            screenManager.setScreenAndKeyboard(mainmenu);
+            screenManager.setScreenAndKeyboard(screenMainMenu);
         }
 
-        settings.updateSettingsDraw();
+        screenSettings.updateSettingsDraw();
     },
 
     executeKeyUp : function (e) {}

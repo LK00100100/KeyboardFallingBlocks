@@ -51,7 +51,7 @@ var highscore = {
             //so we can sort floating numbers
             this.scores.sort(function(a,b) { return a - b;});
 
-            cookies.writeCookies();
+            cookies.saveCookies();
         }
 
     },
@@ -91,20 +91,6 @@ var highscore = {
 
         return str;
 
-    },
-
-    hideScreen : function (){
-        $("#highscorescreen").hide();
-    },
-
-    showScreen : function () {
-        $("#highscorescreen").show();
-
-        this.displayScores();
-    },
-
-    setKeyboard : function () {
-        keyboard.setKeyboard(keyHighScore);
     }
 
 };

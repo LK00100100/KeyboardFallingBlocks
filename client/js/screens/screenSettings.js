@@ -1,10 +1,10 @@
 /**
- * settings.js
+ * screenSettings.js
  *
  * a screen which holds user defined settings and displays them
  */
 
-var settings = {
+var screenSettings = {
 
     //version of save
     enableGhost : true,
@@ -18,19 +18,19 @@ var settings = {
 
     loadSettings : function(){
 
-        game.enableGhost = this.enableGhost;
-        game.NEXT_PIECES_MAXSIZE = this.piecePreviewCount;
-        game.pieceGenerator = this.pieceGenerator;
-        game.rollingCancel = this.rollingCancel;
-        game.keyDownDoesHardDrop = this.keyDownDoesHardDrop;
-	game.spaceDoesHardDrop = this.spaceDoesHardDrop;
+        game.enableGhost = settings.enableGhost;
+        game.NEXT_PIECES_MAXSIZE = settings.piecePreviewCount;
+        game.pieceGenerator = settings.pieceGenerator;
+        game.rollingCancel = settings.rollingCancel;
+        game.keyDownDoesHardDrop = settings.keyDownDoesHardDrop;
+	    game.spaceDoesHardDrop = settings.spaceDoesHardDrop;
     },
 
     incrementPiecePreview : function () {
-        if(this.piecePreviewCount == this.PIECE_PREVIEW_MAX)
-            this.piecePreviewCount = 1;
+        if(settings.piecePreviewCount == settings.PIECE_PREVIEW_MAX)
+            settings.piecePreviewCount = 1;
         else
-            this.piecePreviewCount++;
+            settings.piecePreviewCount++;
     },
 
     updateSettingsDraw : function (){
@@ -38,23 +38,23 @@ var settings = {
         this.setTextColor("#settingsGhost", "red");
         this.setTextColor("#settingsRolling", "red");
         this.setTextColor("#settingsKeyDownHardDrop", "red");
-	this.setTextColor("#settingsSpaceDoesHardDrop", "red");
+	    this.setTextColor("#settingsSpaceDoesHardDrop", "red");
 
-        $("#settingsPreviewCount").text("p) Preview Count : " + this.piecePreviewCount);
+        $("#settingsPreviewCount").text("p) Preview Count : " + settings.piecePreviewCount);
 
-        if(this.enableGhost)
+        if(settings.enableGhost)
             this.setTextColor("#settingsGhost", "green");
 
-        if(this.rollingCancel)
+        if(settings.rollingCancel)
             this.setTextColor("#settingsRolling", "green");
 
-        if(this.keyDownDoesHardDrop)
+        if(settings.keyDownDoesHardDrop)
             this.setTextColor("#settingsKeyDownHardDrop", "green");
 
-	if(this.spaceDoesHardDrop)
-	    this.setTextColor("#settingsSpaceDoesHardDrop", "green");
+        if(settings.spaceDoesHardDrop)
+            this.setTextColor("#settingsSpaceDoesHardDrop", "green");
 
-        $("#settingsPieceGenerator").text("i) Piece Generator: : " + this.pieceGenerator.name);
+        $("#settingsPieceGenerator").text("i) Piece Generator: : " + settings.pieceGenerator.name);
 
     },
 
@@ -64,11 +64,11 @@ var settings = {
 
     togglePieceGenerator : function(){
 
-        if(this.pieceGenerator == pieceGeneratorBag){
-            this.pieceGenerator = pieceGeneratorRandom;
+        if(settings.pieceGenerator == pieceGeneratorBag){
+            settings.pieceGenerator = pieceGeneratorRandom;
         }
         else{
-            this.pieceGenerator = pieceGeneratorBag;
+            settings.pieceGenerator = pieceGeneratorBag;
         }
 
 

@@ -11,10 +11,10 @@ $(window).load(function () {
         window.location.replace("./error.html");
     }
 
-    cookies.readCookies();
+    cookies.loadCookies();
 
     game.init();
 
-    screenManager.setScreenAndKeyboard(mainmenu);
+    screenManager.setScreenAndKeyboard(screenMainMenu);
 });
 

@@ -34,7 +34,7 @@ var keyMainMenu = {
         }
         //h - high score
         if(keyPressed == 72){
-            screenManager.setScreenAndKeyboard(highscore);
+            screenManager.setScreenAndKeyboard(screenHighScore);
         }
 
         //g - github
@@ -49,7 +49,7 @@ var keyMainMenu = {
 
         //s - settings
         if(keyPressed == 83){
-            screenManager.setScreenAndKeyboard(settings);
+            screenManager.setScreenAndKeyboard(screenSettings);
         }
 
     },

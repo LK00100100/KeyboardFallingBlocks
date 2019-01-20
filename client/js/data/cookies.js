@@ -7,6 +7,7 @@
 var cookies = {
 
     dict : {},
+    cookiesLoaded : false,
 
     /**
      * assumed: keys and values do not use '=' or ';'
@@ -38,6 +39,8 @@ var cookies = {
 
         this.convertCookieStringToDictionary(cookie);
 
+        console.log("loading cookies");
+
         if(this.dict["ghost"] == "1")
             settings.enableGhost = true;
         else
@@ -64,7 +67,7 @@ var cookies = {
         if(this.dict["generator"] == "random")
             settings.pieceGenerator = pieceGeneratorRandom;
         else
-            settings.enableGhost = pieceGeneratorBag;
+            settings.pieceGenerator = pieceGeneratorBag;
 
         if(this.dict["highScore"] != null){
 
@@ -77,6 +80,7 @@ var cookies = {
             highscore.loadHighScores(scores);
         }
 
+        cookiesLoaded = true;
     },
 
     saveCookies : function (){

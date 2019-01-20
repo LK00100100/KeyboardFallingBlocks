@@ -27,17 +27,17 @@ var keySettings = {
 
         //s - space harddrop
         if (keyPressed == 83) {
-                settings.spaceDoesHardDrop = !settings.spaceDoesHardDrop;
+            settings.spaceDoesHardDrop = !settings.spaceDoesHardDrop;
         }
 
         //p - preview count
         if (keyPressed == 80) {
-            screenSettings.incrementPiecePreview();
+            settings.incrementPiecePreview();
         }
 
         //i - preview count
         if (keyPressed == 73) {
-            screenSettings.togglePieceGenerator();
+            settings.togglePieceGenerator();
         }
 
         //"\"

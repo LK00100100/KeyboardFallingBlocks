@@ -124,6 +124,8 @@ Settings
 	The first key will be cancelled.
 - Keydown Does Hard Drop : Key-presses does hard drop. This makes the game harder.
 - Space Does Hard Drop : If enabled, only space allows hard drops.
+	Note: Is overridden by "keydown does hard drop"
+
 - Piece Preview Amount : It's the preview amount. Values are from 1 - 7.
 - Piece Generator
 	- random - all pieces have an equal chance of spawning

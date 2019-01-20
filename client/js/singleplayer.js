@@ -1,4 +1,6 @@
-/*
+"use strict";
+
+/**
  * singleplayer.js
  * Deals with setting up the game before the game.
  */

@@ -1,8 +1,9 @@
+"use strict";
+
 /**
  * common.js
  *
  * loads assets
- *
  */
 
 // Setup requestAnimationFrame and cancelAnimationFrame for use in the game code

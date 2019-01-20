@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * keyboard.js
  * All keyboard presses go through here first.
@@ -41,5 +43,3 @@ $(window).keyup(function (e) {
     keyboard.currentKeyboard.executeKeyUp(e);
 
 });
-
-

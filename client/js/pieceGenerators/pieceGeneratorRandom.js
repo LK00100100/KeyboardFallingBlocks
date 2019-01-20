@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * pieceGeneratroRandom.js
  *

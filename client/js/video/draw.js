@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * draw.js
  *
@@ -149,34 +151,6 @@ var draw = {
         this.foregroundContext.lineWidth = 4;
         this.foregroundContext.strokeStyle = '#00ff00';
         this.foregroundContext.stroke();
-
-    },
-
-    drawGhostLines : function (){
-
-        //TODO draw actual faint ghost piece
-        //draw ghost piece
-        this.foregroundContext.lineWidth = 2;
-        this.foregroundContext.strokeStyle = '#ff0000';
-
-        //draw left line.
-        this.foregroundContext.beginPath();
-        x = this.DRAW_BOARD_X + (game.currentPiece.col * this.BLOCK_WIDTH);
-        y = this.DRAW_BOARD_Y + (game.currentPiece.row * this.BLOCK_WIDTH);
-        this.foregroundContext.moveTo(x, y);
-        y = this.DRAW_BOARD_Y + (this.BLOCK_WIDTH * game.BOARD_ROWS);
-        this.foregroundContext.lineTo(x, y);
-        this.foregroundContext.stroke();
-
-        //draw right line
-        this.foregroundContext.beginPath();
-        x = this.DRAW_BOARD_X + (game.currentPiece.col * this.BLOCK_WIDTH) + (game.currentPiece.colSize * this.BLOCK_WIDTH);
-        y = this.DRAW_BOARD_Y + (game.currentPiece.row * this.BLOCK_WIDTH);
-        this.foregroundContext.moveTo(x, y);
-        y = this.DRAW_BOARD_Y + (this.BLOCK_WIDTH * game.BOARD_ROWS);
-        this.foregroundContext.lineTo(x, y);
-        this.foregroundContext.stroke();
-
 
     },
 

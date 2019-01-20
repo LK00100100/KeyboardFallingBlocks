@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * sounds.js
  * handles sound-related things

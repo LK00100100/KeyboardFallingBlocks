@@ -1,9 +1,10 @@
+"use strict";
+
 /**
  * game.js
  * holds all the information for the game state
  * does game calculations.
  */
-
 
 var game = {
 

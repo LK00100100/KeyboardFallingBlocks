@@ -3,20 +3,21 @@ Keyboard Falling Blocks (KFB) manual
 Tested on Chrome
 
 firefox has a problem.
-	bug: hold "/" then hold "." then press space.
+	bug: In game, hold "/" then hold "." then press space.
 	Release keys. It acts as if space wasn't hit.
 
 =====
 Intro and Theory
 =====
 
-This is based off a certain game that shall not be named
-due to "reasons." So we shall use "KFB" to refer
+This is based off Tetris, but we shall use "KFB" to refer
 to this game.
 
 The whole purpose of KFB is that in theory you can play
-faster if you can get past the ridiculous learning curve.
-In old falling blocks game, if you wanted to rotate clockwise
+faster by pressing less keys if you can get past the
+ridiculous learning curve.
+
+In Tetris, if you wanted to rotate clockwise
 2 times and place the current piece in the 0th column, you'd
 have to press: clockwise, clockwise, left, left, left).
 
@@ -26,34 +27,34 @@ With KFB, you just have to press 1 button!
 Gameplay Modes
 =====
 There are two main modes of gameplay. For beginners, it is
-recommended to activate "Space does hard drop". This will
+recommended that you activate "Space does hard drop". This will
 allow you to position pieces using the keyboard, then drop
 them by pressing space.
 
 Disabling the "Space does hard drop" option causes the
 rules below to be activated. These rules will allow you to
-drop pieces with only one keypress each, without having to
-press the spacebar to drop pieces.
+drop pieces with only one key-press.
 
 =====
 The Keyboard
 =====
-Key press down or up activates an action
+Key-press (also known as keydown. Not to be confused with the "down" key)
+or
+key-release (keyup) executes an action.
 
-some easy keys to memorize.
+shift (hold piece) - hold a piece, to save for later.
+		all keys pressed become inert. example below.
 
-shift (up) - hold a piece, to save for later.
-			all keys pressed are inert. example below.
-space (down) - all keys pressed are inert. example below.
+space (inert keyboard) - all keys pressed become inert. example below.
 
 enter (restart game)
 	-the game freezes when you win because it's not done.
 
-active keys:
-1,2,3,4,5,6,7,8,9,0
-q,w,e,r,t,y,u,i,o,p
-a,s,d,f,g,h,j,k,l,;
-z,x,c,v,b,n,m,,,.,/
+To move pieces, you have to use the following keys:
+row 1 : 1,2,3,4,5,6,7,8,9,0
+row 2 : q,w,e,r,t,y,u,i,o,p
+row 3 : a,s,d,f,g,h,j,k,l,;
+row 4 : z,x,c,v,b,n,m,,,.,/
 
 Each row represents a number of rotations:
 row 1 = 0 clockwise rotations
@@ -63,34 +64,37 @@ row 4 = 3 clockwise rotations
 
 Each column represents where the upper left corner of the
 current piece should be.
-So if you press 1 (first column), then the current piece
-will be teleported to that column with 0 rotations.
 
-Pressing 'L' will attempt to shove the current piece to the
+Example: So if you press "a", then the current piece will be moved
+to the first column with 2 rotations.
+
+Example: So if you press "2", then the current piece will be moved
+to the second column with 0 rotations.
+
+Example: Pressing 'L' will attempt to shove the current piece to the
 9th column with 2 rotations. If the piece is out of bounds,
 it will be gently nudged back in. 'L' is not "second column" from
 the right, which may be confusing. Some keys will have the
 same effect due to this. But the original "upper-left corner
 column" rule will stay.
 
-Key down will place the current piece in a sort of "preview"
+Key-press will place the current piece in a sort of "preview" state
+where it will not drop.
 
-key up will place the current piece in a "preview" and then
-hard drop it. All keys current pressed down are now inert.
+Key-release will place the current piece in a "preview" and then
+hard drop it. Any keys still being pressed become inert.
 
 Examples, because this may be confusing.
 
 PLAYING
-Lets say you press 0, 1 and THEN 2. You want to drop on 1. So release
+Lets say you press "0", "1" and THEN "2" simultaneously. You want to drop on "1". So release "1".
 1. The piece will go to the "1" position and then hard drop.
-2. 0 and 1 will be inert until keypressed up.
+2. 0 and 1 will be inert. You can safely key-release them.
 3. Any other key will work.
 
 CANCELLING
 Lets say you press 0, 1 and 2. You don't want any of these moves.
-Press spacebar once. Lifting specifically the keys 0, 1, or 2 won't
-do anything. These are inert until keypressed up.
-Any other key will work.
+Press spacebar once. You can safely key-release the keys "0", "1", or "2."
 
 Try the game out
 
@@ -103,9 +107,9 @@ the following operation takes place.
 
 HOLD > cancel (if no hold) > command (if none of the above).
 
-Commands are pushed in whenever javascript gets the keypress
-down or up event. They are executed in the "game processing loop"
-as a queue. whatever came in first, is executed first.
+Commands are pushed in whenever javascript gets a key-press
+or key-release event. They are executed in the "game processing loop"
+as a queue. Whatever came in first, is executed first.
 
 There is no gravity due to the difficulty of this game.
 It is all a race against time.
@@ -115,16 +119,16 @@ This game currently features 40 lines mode.
 =====
 Settings
 =====
-- Rolling Cancel : when you hold one key, and then hold another key down.
-	The first key will be cancelled.
-- Keydown Does Hard Drop : Keydown does hard drop.
-- Piece Preview Amount : Piece 
 - Ghost Piece: turns on the piece preview after drop.
+- Rolling Cancel : Keypress the first key and then keypress a second key.
+	The first key will be cancelled.
+- Keydown Does Hard Drop : Key-presses does hard drop. This makes the game harder.
+- Space Does Hard Drop : If enabled, only space allows hard drops.
+- Piece Preview Amount : It's the preview amount. Values are from 1 - 7.
 - Piece Generator
 	- random - all pieces have an equal chance of spawning
-	- 7-bag - all 7 pieces are placed in a bag. They are randomly taken out.
+	- 14-bag - all 7 pieces are placed in a bag twice. They are randomly taken out.
 		when the bag is empty, place the 7 pieces back in there, repeat.
-- This game dpes not start out with the S/Z piece.
 
 =====
 Misc
@@ -133,7 +137,9 @@ Misc
 Cookies expire after 1 year.
 It stores game-settings and high scores.
 
+This game does not start out with the S/Z piece for convenience.
+
 =====
-credits
+Credits
 =====
 Send your mail to LK00100100 @ g-mail dot com

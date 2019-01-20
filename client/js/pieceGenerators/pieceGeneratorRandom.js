@@ -1,5 +1,7 @@
 /**
- * Created by Keh_L on 1/25/2017.
+ * pieceGeneratroRandom.js
+ *
+ * holds random pieces.
  */
 
 var pieceGeneratorRandom = {

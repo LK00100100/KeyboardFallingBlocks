@@ -1,7 +1,7 @@
 /**
  * highscore.js
  *
- * high score screen
+ * manages and holds high score data
  */
 
 var highscore = {

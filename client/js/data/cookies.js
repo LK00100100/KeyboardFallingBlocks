@@ -1,7 +1,7 @@
 /**
- * settings.js
+ * cookies.js
  *
- * holds user defined settings.
+ * manages cookies
  */
 
 var cookies = {

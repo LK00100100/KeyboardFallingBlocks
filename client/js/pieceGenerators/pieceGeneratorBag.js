@@ -1,15 +1,14 @@
 /**
- * Created by Keh_L on 1/25/2017.
+ * pieceGenerateBag.js
+ *
+ * holds 2 copies of every piece.
  */
 
 var pieceGeneratorBag = {
 
-    name : "7-bag",
-
+    name : "14-bag",
     pieces: [pieceI, pieceJ, pieceL, pieceO, pieceS, pieceT, pieceZ],
-
     bag : [],
-
     MIN_SIZE : 14,
 
     generateRandomPiece: function () {

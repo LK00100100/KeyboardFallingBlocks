@@ -1,7 +1,7 @@
 /**
  * keySettings.js
  *
- * settings screen keyboard handling
+ * keyboard handling for screenSettings
  */
 
 var keySettings = {
@@ -20,12 +20,12 @@ var keySettings = {
             settings.rollingCancel = !settings.rollingCancel;
         }
 
-        //h - keydown harddrop
+        //h - keydown hard drop
         if (keyPressed == 72) {
             settings.keyDownDoesHardDrop = !settings.keyDownDoesHardDrop;
         }
 
-        //s - space harddrop
+        //s - space hard drop
         if (keyPressed == 83) {
             settings.spaceDoesHardDrop = !settings.spaceDoesHardDrop;
         }
@@ -40,7 +40,7 @@ var keySettings = {
             settings.togglePieceGenerator();
         }
 
-        //"\"
+        //"\" - go back
         if (keyPressed == 220) {
             cookies.saveCookies();
 

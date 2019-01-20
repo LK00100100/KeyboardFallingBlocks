@@ -1,5 +1,7 @@
-//sounds.js
-//handles sound-related thing
+/**
+ * sounds.js
+ * handles sound-related things
+ */
 
 var sounds = {
     list: {

@@ -1,5 +1,5 @@
 /**
- * screenHighscore.js
+ * screenHighScore.js
  *
  * high score screen
  */

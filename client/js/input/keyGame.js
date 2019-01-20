@@ -77,7 +77,7 @@ var keyGame = {
     },
 
     /*
-     * these help notify if the key is already being pressed dwon
+     * these help notify if the key is already being pressed down
      * so we don't keep calling it again and again.
      * this will make sure keydown activates only once.
      */

@@ -1,9 +1,9 @@
 /**
  * screenSettings.js
  *
- * a screen which holds user defined settings and displays them
+ * a screen which displays user defined settings
  *
- * interacts with data/settings.js
+ * interacts with settings.js
  */
 
 var screenSettings = {

@@ -1,7 +1,7 @@
 /**
  * keyMainMenu.js
  *
- * key presses for the main menu
+ * keyboard handling for screenMainMenu
  */
 
 var keyMainMenu = {
@@ -11,11 +11,7 @@ var keyMainMenu = {
         var keyPressed = e.which;
 
         //a
-        if(keyPressed == 65){
-            //screenManager.setScreenAndKeyboard(game);
-
-            //singleplayer.start1Lines();
-        }
+        if(keyPressed == 65){}
 
         //b
         if(keyPressed == 66){
@@ -23,15 +19,7 @@ var keyMainMenu = {
 
             singleplayer.start40Lines();
         }
-        //c
-        if(keyPressed == 67){
 
-        }
-        //d
-        if(keyPressed == 68){
-
-
-        }
         //h - high score
         if(keyPressed == 72){
             screenManager.setScreenAndKeyboard(screenHighScore);

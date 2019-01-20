@@ -1,7 +1,7 @@
 /**
  * keyHighScore.js
  *
- * high score screen keyboard handling
+ * keyboard handling for screenHighScore
  */
 
 var keyHighScore = {
@@ -10,7 +10,7 @@ var keyHighScore = {
 
         var keyPressed = e.which;
 
-        //\ - back to main menu
+        //"\" - back to main menu
         if(keyPressed == 220){
             screenManager.setScreenAndKeyboard(screenMainMenu);
         }

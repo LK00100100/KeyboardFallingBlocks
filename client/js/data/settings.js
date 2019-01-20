@@ -1,12 +1,13 @@
 /**
  * settings.js
  *
- * holds user defined settings
+ * holds user defined settings and manages it
  */
 
 var settings = {
 
     //version of save
+    //these are defaults. they are overwritten by cookies.js in main.js
     enableGhost : true,
     rollingCancel : true,
     keyDownDoesHardDrop : false,

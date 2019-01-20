@@ -1,5 +1,5 @@
 /**
- * mainmenu.js
+ * screenMainMenu.js
  *
  * main menu screen
  */

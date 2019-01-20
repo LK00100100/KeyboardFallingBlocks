@@ -1,6 +1,8 @@
 /**
  * keyboard.js
  * All keyboard presses go through here first.
+ *
+ * holds what the current custom keyboard is.
  */
 
 var keyboard = {

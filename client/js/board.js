@@ -214,7 +214,7 @@ var board = {
 
     generateGhostPiece : function() {
 
-        if(game.enableGhost == false)
+        if(settings.enableGhost == false)
             return;
 
         //clone ghost piece

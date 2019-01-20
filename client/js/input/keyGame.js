@@ -61,12 +61,12 @@ var keyGame = {
 
     //space, "cancel"
     spaceKeyFunction: function () {  //space, "cancel", erase all commands
-        if (game.spaceDoesHardDrop) {
+        if (settings.spaceDoesHardDrop) {
             game.commands.push({hardDropCommand: true});
-	}
-	else {
-	    this.nullifyCommands();
-	}
+        }
+        else {
+            this.nullifyCommands();
+        }
     },
 
     /*
@@ -96,13 +96,13 @@ var keyGame = {
 
         var keyPressed = e.which;
 
-        // forward slash - prevent default "quick find" for firefox.
+        // "/" - prevent default "quick find" for firefox.
         // quotes - prevent quick find
         if (keyPressed == 191 || keyPressed == 222) {
             e.preventDefault();
         }
 
-        //\ - go back to main menu
+        //"\" - go back to main menu
         if(keyPressed == 220){
             game.end();
             screenManager.setScreenAndKeyboard(screenMainMenu);
@@ -136,17 +136,17 @@ var keyGame = {
         if (keyGame["isPressed"][keyPressed] == false) {
             keyGame["isPressed"][keyPressed] = true;
 
-            if(game.rollingCancel)
+            if(settings.rollingCancel)
                 keyGame.nullifyCommands();
 
-            if(game.keyDownDoesHardDrop == false) {
+            if(settings.keyDownDoesHardDrop == false) {
                 keyGame.activeKeys.push(keyPressed);
             }
             
             keyGame.executeKeyAction(keyPressed);
 
             //then hard drop (if enabled)
-            if(game.keyDownDoesHardDrop){
+            if(settings.keyDownDoesHardDrop){
                 game.commands.push({hardDropCommand: true});
             }
 
@@ -170,7 +170,7 @@ var keyGame = {
         //finalize the move and do a hard-drop
         //active hard-drop. Only works if
 	    //space does not do hard drop.
-        if (this.activeKeys.indexOf(keyPressed) != -1 && !game.spaceDoesHardDrop) {
+        if (this.activeKeys.indexOf(keyPressed) != -1 && !settings.spaceDoesHardDrop) {
 
             //all other keys are nullified.
             this.activeKeys = [];

@@ -39,6 +39,7 @@ var game = {
     commands: [],				//stores player commands. only processed during the "waiting command" stage
     currentPiece: null,
     ghostPiece: null,
+
     enableGhost: true,
     currentPieceOriginal: null,	//the starting position/orientation for currentPiece.
     nextPieces: [],
@@ -46,10 +47,6 @@ var game = {
     gameOver: false,
     pieceGenerator : pieceGeneratorRandom,
     newHighScore : false,
-    rollingCancel : false,
-    keyDownDoesHardDrop : false,
-    spaceDoesHardDrop : false,
-
 
     // Start pre-loading assets.
     // Call once before you enter the game screen.
@@ -67,8 +64,6 @@ var game = {
     //reset all game variables to square-0.
     resetGame: function () {
 
-        settings.loadSettings();
-
         //reset stats
         game.goal = game.LINES_TO_WIN;
         game.level = 1;
@@ -84,7 +79,7 @@ var game = {
         //get the current piece and a copy.
         game.currentPieceOriginal = pieceS;
         while(game.currentPieceOriginal.pieceType == "PieceS" || game.currentPieceOriginal.pieceType == "PieceZ")
-            game.currentPieceOriginal = this.pieceGenerator.generateRandomPiece();
+            game.currentPieceOriginal = settings.pieceGenerator.generateRandomPiece();
 
         game.setPieceInStartPosition(game.currentPieceOriginal);
         game.currentPiece = $.extend({}, game.currentPieceOriginal);
@@ -92,8 +87,8 @@ var game = {
         //get the next pieces
         var pieceTemp;
         game.nextPieces = [];
-        for (var i = 0; i < game.NEXT_PIECES_MAXSIZE; i++) {
-            pieceTemp = this.pieceGenerator.generateRandomPiece();
+        for (var i = 0; i < settings.piecePreviewCount; i++) {
+            pieceTemp = settings.pieceGenerator.generateRandomPiece();
             game.setPieceInStartPosition(pieceTemp);
             game.nextPieces.push(pieceTemp);
         }
@@ -270,7 +265,7 @@ var game = {
         game.currentPiece = $.extend({}, game.currentPieceOriginal);
 
         //add a new piece to the queue.
-        var pieceTemp = this.pieceGenerator.generateRandomPiece();
+        var pieceTemp = settings.pieceGenerator.generateRandomPiece();
         game.setPieceInStartPosition(pieceTemp);
         game.nextPieces.push(pieceTemp);
 

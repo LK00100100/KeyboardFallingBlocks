@@ -11,9 +11,12 @@ var timing = {
     //TIMING INFO
     FPS: 30,                //30 frames per second
     frameSecond : -1,
-    currentTick: 0,
-    intervalID: -1,
+
+    intervalID: null,
     animationTimeout: -1, 	// 100 = 100 milliseconds or 10 times a second, i set it to 30 SPF
+
+    currentTick: 0,
+    time : 0,
 
     init : function (){
 

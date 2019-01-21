@@ -22,7 +22,7 @@ var singleplayer = {
         game.resetGame();
 
         //run the calculation loop; 30FPS
-        timing.animationInterval = setInterval(timing.calculationLoop, timing.animationTimeout);
+        timing.intervalID = setInterval(timing.calculationLoop, timing.animationTimeout);
 
         //run the draw loop (whenever you can)
         game.startGame();
@@ -32,7 +32,7 @@ var singleplayer = {
     endGame: function () {
         game.running = false;
 
-        clearInterval(timing.animationInterval);
+        clearInterval(timing.intervalID);
 
         var highScoreText = this.getHighScoreText();
 

@@ -31,6 +31,18 @@ var board = {
 
 
     /**
+     * it'll place the piece down regardless of failure. (with overlap)
+     * @param row
+     * @param col
+     */
+    attemptToMoveCurrentPiece: function (row, col) {
+
+        board.removePiece(game.currentPiece);
+        board.placePiece(game.currentPiece, row, col);
+
+    },
+
+    /**
      * returns true if the piece fits at the requested location and is in bounds.
      * false if not.
      *
@@ -176,7 +188,7 @@ var board = {
 
             //if this line needs to be cleared.
             if (board.theBoard[row][0] == 2) {
-                game.incrementLinesCleared();
+                stats.incrementLinesCleared();
 
                 //clear line
                 for (var col = 0; col < board.theBoard[0].length; col++) {

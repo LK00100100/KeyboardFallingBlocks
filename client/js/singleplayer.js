@@ -8,7 +8,7 @@
 var singleplayer = {
 
     start40Lines: function () {
-        game.LINES_TO_WIN = 40;
+        game.linesToWin = 40;
 
         $("#levelText").hide();
         $("#scoreText").hide();
@@ -50,7 +50,7 @@ var singleplayer = {
         }
 
         //you won
-        if (game.linesCleared >= game.LINES_TO_WIN) {
+        if (stats.linesCleared >= stats.linesToWin) {
 
             draw.showMessageBox("Victory!<br>" +
                 "[ENTER] to restart.<br>" +

@@ -23,30 +23,24 @@ var game = {
     START_ROW: 0,			//current piece's starting area
     START_COL: 3,
     LINES_TO_LEVEL_UP: 10,
-    LINES_TO_WIN: -1,
     LINES_CLEARED_LIMIT: 9999,
     GAME_OVER_ROW: 4,		//stuff filled in this row[x] is bad
     NEXT_PIECES_MAXSIZE: 7,
+    linesToWin: -1,
 
     //GAME INFO
-    goal: -1,
     time: 0,
-    level: -1,
-    score: -1,
-    linesCleared: -1,
     holdPiece: null,
     //{col, rotate, hold, pause}
     commands: [],				//stores player commands. only processed during the "waiting command" stage
     currentPiece: null,
     ghostPiece: null,
 
-    enableGhost: true,
     currentPieceOriginal: null,	//the starting position/orientation for currentPiece.
     nextPieces: [],
     justPressedHold: false,		//to ensure that we don't press hold infinitely. only once per drop.
     gameOver: false,
-    pieceGenerator : pieceGeneratorRandom,
-    newHighScore : false,
+    newHighScore : false,       //if a new high score has been placed, highlight it red.
 
     // Start pre-loading assets.
     // Call once before you enter the game screen.
@@ -65,14 +59,12 @@ var game = {
     resetGame: function () {
 
         //reset stats
-        game.goal = game.LINES_TO_WIN;
-        game.level = 1;
-        game.score = 0;
-        game.linesCleared = 0;
         game.time = 0;
         game.currentTick = 0;
         game.commands = [];
         game.newHighScore = false;
+
+        stats.resetStats();
 
         board.clearBoard();
 
@@ -108,11 +100,8 @@ var game = {
 
         game.running = true;
 
-        draw.drawKeyAssist();
 
         draw.drawingLoop();
-
-        $('#gamemessages').html("");
     },
 
     /**
@@ -237,10 +226,9 @@ var game = {
             game.currentPiece = $.extend({}, game.currentPieceOriginal);
         }
 
-        game.attemptToMoveCurrentPiece(game.currentPiece.row, game.currentPiece.col);
+        board.attemptToMoveCurrentPiece(game.currentPiece.row, game.currentPiece.col);
 
     },
-
 
     /**
      * Set this piece's start position.
@@ -272,18 +260,6 @@ var game = {
     },
 
     /**
-     * it'll place the piece down regardless of failure. (with overlap)
-     * @param row
-     * @param col
-     */
-    attemptToMoveCurrentPiece: function (row, col) {
-
-        board.removePiece(game.currentPiece);
-        board.placePiece(game.currentPiece, row, col);
-
-    },
-
-    /**
      * tries to move the currentPiece in the direction of the argument.
      *
      * will overlap with other pieces.
@@ -304,7 +280,7 @@ var game = {
                 game.currentPiece.row = 0;
 
             //place the piece in the new spot
-            game.attemptToMoveCurrentPiece(game.currentPiece.row, game.currentPiece.col);
+            board.attemptToMoveCurrentPiece(game.currentPiece.row, game.currentPiece.col);
 
         }
 
@@ -315,10 +291,7 @@ var game = {
             if (command.col + game.currentPiece.colSize > game.BOARD_COLS)
                 command.col = game.BOARD_COLS - game.currentPiece.colSize;
 
-            //see if it fits in the new place
-            //place the piece in the new spot
-
-            game.attemptToMoveCurrentPiece(game.currentPiece.row, command.col);
+            board.attemptToMoveCurrentPiece(game.currentPiece.row, command.col);
 
         }
 
@@ -330,7 +303,7 @@ var game = {
 
         game.justPressedHold = false;
 
-        //TODO redo this
+        //TODO redo this?
         //drop the piece down one row at a time
 
         board.removePiece(game.currentPiece);
@@ -353,7 +326,7 @@ var game = {
         if (game.isGameOver()) {
 
             //cleared enough lines
-            if (game.linesCleared >= game.LINES_TO_WIN) {
+            if (stats.linesCleared >= game.linesToWin) {
 
                 highscore.updateHighScore(game.time);
                 highscore.printScores();
@@ -371,37 +344,11 @@ var game = {
 
     },
 
-    incrementLinesCleared: function () {
-
-        //limit reached, do nothing.
-        if (game.linesCleared == game.LINES_CLEARED_LIMIT)
-            return;
-
-        game.linesCleared++;
-
-        game.calculateGoal();
-
-        //if the number of lines cleared is now divisble by 10,
-        //make the level speed faster
-        if (game.linesCleared % 10 == 0) {
-            //TODO maybe do?
-            //game.incrementLevel();
-        }
-
-    },
-
-    calculateGoal : function(){
-        game.goal = game.LINES_TO_WIN - game.linesCleared;
-
-        if(game.goal < 0)
-            game.goal = 0;
-    },
-
     //note: if get a certain amount of lines and die on the same frame, it's a victory.
     isGameOver: function () {
 
         //cleared enough lines
-        if (game.linesCleared >= game.LINES_TO_WIN)
+        if (stats.linesCleared >= game.linesToWin)
             return true;
 
         //if the losing line has been touched.
@@ -422,28 +369,10 @@ var game = {
 
         //TODO fix this to 10
 
-        if(game.LINES_TO_WIN == 1){
-            singleplayer.start10Lines();
-        }
-
-        if(game.LINES_TO_WIN == 40){
+        if(game.linesToWin == 40){
             singleplayer.start40Lines();
         }
 
-    },
-
-    showScreen : function () {
-        $('.gamelayer').hide();
-        $('#gameinterfacescreen').show();
-    },
-
-    hideScreen : function(){
-        $('.gamelayer').hide();
-        $('#gameinterfacescreen').hide();
-    },
-
-    setKeyboard : function () {
-        keyboard.setKeyboard(keyGame);
     }
 
 };

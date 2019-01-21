@@ -75,6 +75,8 @@ var draw = {
 
         this.drawHoldBox();
 
+        this.drawKeyAssist();
+
         if(this.enableMessageBox == true){
             this.drawMessageBox();
         }
@@ -219,7 +221,7 @@ var draw = {
     },
 
     drawGoal : function() {
-      $("#goal").html(game.goal);
+      $("#goal").html(stats.goal);
     },
 
     drawTime : function (){
@@ -231,7 +233,7 @@ var draw = {
 
     drawLinesCleared : function() {
         //draw lines cleared
-        $('#lines').html(game.linesCleared);
+        $('#lines').html(stats.linesCleared);
     },
 
     drawHoldBox : function (){

@@ -21,6 +21,29 @@ var timing = {
 
     },
 
+    /**
+     * A control loop that runs at a fixed period of time
+     * this does the game calculations
+     */
+    calculationLoop: function () {
+        //note: careful when you use the "this" keyword in this method. 'this' is global.
+
+        if (!game.running)
+            return;
+
+        timing.currentTick++;
+
+        var frameSecond = (1 / timing.FPS);
+
+        timing.setTimer(frameSecond);
+
+        //process user keyboard inputs (in order)
+        for (var i = 0; i < game.commands.length; i++) {
+            game.processInput(game.commands.shift());
+        }
+
+    },
+
     resetTiming : function(){
 
         timing.time = 0;

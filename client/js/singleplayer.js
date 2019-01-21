@@ -21,10 +21,10 @@ var singleplayer = {
 
         game.resetGame();
 
-        //animate the sprites, update date; 30FPS
-        timing.animationInterval = setInterval(game.calculationLoop, timing.animationTimeout);
+        //run the calculation loop; 30FPS
+        timing.animationInterval = setInterval(timing.calculationLoop, timing.animationTimeout);
 
-        //then draw the sprites (whenever you can)
+        //run the draw loop (whenever you can)
         game.startGame();
     },
 
@@ -34,19 +34,7 @@ var singleplayer = {
 
         clearInterval(timing.animationInterval);
 
-        var highScoreText = "";
-        var score;
-        for(var i = 0; i < highscore.scores.length; i++){
-
-            score = Number.parseFloat(highscore.scores[i]).toFixed(2);
-
-            if(game.newHighScore == true && i == 0){
-                highScoreText += "<font color=\"red\">" + (i + 1) + ": " + score + "</font><br>";
-            }
-            else
-                highScoreText += (i + 1) + ": " + score + "<br>";
-
-        }
+        var highScoreText = this.getHighScoreText();
 
         //you won
         if (stats.linesCleared >= stats.linesToWin) {
@@ -66,5 +54,25 @@ var singleplayer = {
             highScoreText);
         }
 
+    },
+
+    getHighScoreText : function (){
+        var highScoreText = "";
+        var score;
+        for(var i = 0; i < highscore.scores.length; i++){
+
+            score = Number.parseFloat(highscore.scores[i]).toFixed(2);
+
+            if(game.newHighScore == true && i == 0){
+                highScoreText += "<font color=\"red\">" + (i + 1) + ": " + score + "</font><br>";
+            }
+            else
+                highScoreText += (i + 1) + ": " + score + "<br>";
+
+        }
+
+        return highScoreText;
+
     }
+
 };

@@ -29,7 +29,6 @@ var board = {
         }
     },
 
-
     /**
      * it'll place the piece down regardless of failure. (with overlap)
      * @param row

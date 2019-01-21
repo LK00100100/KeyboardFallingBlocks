@@ -10,14 +10,14 @@ var game = {
 
     //GAME INFO
     linesToWin: -1,
-    holdPiece: null,
 
     //{col, rotate, hold, pause}
     commands: [],				//stores player commands. only processed during the "waiting command" stage
+    currentPieceOriginal: null,	//the starting position/orientation for currentPiece.
     currentPiece: null,
     ghostPiece: null,
+    holdPiece: null,
 
-    currentPieceOriginal: null,	//the starting position/orientation for currentPiece.
     nextPieces: [],
     justPressedHold: false,		//to ensure that we don't press hold infinitely. only once per drop.
     gameOver: false,
@@ -80,29 +80,6 @@ var game = {
         game.running = true;
 
         draw.drawingLoop();
-    },
-
-    /**
-     * A control loop that runs at a fixed period of time
-     * this does the game calculations
-     */
-    calculationLoop: function () {
-        //note: careful when you use the "this" keyword in this method. 'this' is global.
-
-        if (!game.running)
-            return;
-
-        timing.currentTick++;
-
-        var frameSecond = (1 / timing.FPS);
-
-        timing.setTimer(frameSecond);
-
-        //process user keyboard inputs (in order)
-        for (var i = 0; i < game.commands.length; i++) {
-            game.processInput(game.commands.shift());
-        }
-
     },
 
     /**
@@ -183,7 +160,6 @@ var game = {
      */
     setPieceInStartPosition: function (tempPiece) {
 
-        //TODO move this to piece.js?
         tempPiece.row = gameConst.START_ROW;
         tempPiece.col = gameConst.START_COL;
         tempPiece.setId(1);
@@ -251,9 +227,7 @@ var game = {
 
         game.justPressedHold = false;
 
-        //TODO redo this?
         //drop the piece down one row at a time
-
         board.removePiece(game.currentPiece);
         var i = 1;
         while (board.doesPieceFit(game.currentPiece, game.currentPiece.row + i, game.currentPiece.col)) {
@@ -314,8 +288,6 @@ var game = {
     endAndResetGame : function (){
 
         game.end();
-
-        //TODO fix this to 10
 
         if(game.linesToWin == 40){
             singleplayer.start40Lines();

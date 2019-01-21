@@ -12,10 +12,10 @@ var board = {
 
     initBoard : function () {
         //top 4 rows are "ceiling" rows. The rest are "visible" rows.
-        var totalRows = game.BOARD_ROWS;
+        var totalRows = gameConst.BOARD_ROWS;
         board.theBoard = new Array(totalRows);
         for (var i = 0; i < totalRows; i++)
-            board.theBoard[i] = new Array(game.BOARD_COLS);
+            board.theBoard[i] = new Array(gameConst.BOARD_COLS);
 
     },
 
@@ -58,11 +58,11 @@ var board = {
         if (col < 0)
             return false;
         //not within the right walls.
-        else if (col + thePiece.colSize - 1 >= game.BOARD_COLS)
+        else if (col + thePiece.colSize - 1 >= gameConst.BOARD_COLS)
             return false;
 
         //out of bottom boundaries
-        if (row + thePiece.rowSize - 1 >= game.BOARD_ROWS)
+        if (row + thePiece.rowSize - 1 >= gameConst.BOARD_ROWS)
             return false;
 
         //note: it is impossible to hit above the top.
@@ -253,8 +253,8 @@ var board = {
     isBoardGameOver : function() {
 
         //if the losing line has been touched by a solid piece
-        for (var i = 0; i < game.BOARD_COLS; i++) {
-            if (board.theBoard[game.GAME_OVER_ROW][i] == 1)
+        for (var i = 0; i < gameConst.BOARD_COLS; i++) {
+            if (board.theBoard[gameConst.GAME_OVER_ROW][i] == 1)
                 return true;
         }
 

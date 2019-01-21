@@ -27,7 +27,7 @@ var stats = {
     incrementLinesCleared: function () {
 
         //limit reached, do nothing.
-        if (stats.linesCleared == stats.LINES_CLEARED_LIMIT)
+        if (stats.linesCleared == gameConst.LINES_CLEARED_LIMIT)
             return;
 
         stats.linesCleared++;

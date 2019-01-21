@@ -17,18 +17,7 @@ var game = {
     animationTimeout: -1, 	// 100 = 100 milliseconds or 10 times a second, i set it to 30 SPF
 
     //GAME INFO
-    BOARD_ROWS: 25,			//total rows, including invisible ceiling. 0 is the top
-    BOARD_CEILING_ROWS: 5,	//number of invisible ceiling rows
-    BOARD_COLS: 10,
-    START_ROW: 0,			//current piece's starting area
-    START_COL: 3,
-    LINES_TO_LEVEL_UP: 10,
-    LINES_CLEARED_LIMIT: 9999,
-    GAME_OVER_ROW: 4,		//stuff filled in this row[x] is bad
-    NEXT_PIECES_MAXSIZE: 7,
     linesToWin: -1,
-
-    //GAME INFO
     time: 0,
     holdPiece: null,
     //{col, rotate, hold, pause}
@@ -236,8 +225,8 @@ var game = {
     setPieceInStartPosition: function (tempPiece) {
 
         //TODO move this to piece.js
-        tempPiece.row = game.START_ROW;
-        tempPiece.col = game.START_COL;
+        tempPiece.row = gameConst.START_ROW;
+        tempPiece.col = gameConst.START_COL;
         tempPiece.setId(1);
 
     },
@@ -288,8 +277,8 @@ var game = {
         if (typeof command.col !== 'undefined') {
 
             //out of bounds, push it back in to the left
-            if (command.col + game.currentPiece.colSize > game.BOARD_COLS)
-                command.col = game.BOARD_COLS - game.currentPiece.colSize;
+            if (command.col + game.currentPiece.colSize > gameConst.BOARD_COLS)
+                command.col = gameConst.BOARD_COLS - game.currentPiece.colSize;
 
             board.attemptToMoveCurrentPiece(game.currentPiece.row, command.col);
 

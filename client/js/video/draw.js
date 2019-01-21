@@ -97,10 +97,10 @@ var draw = {
 
         // draw the board (empty and current piece)
         // (start drawing from the top-drawing row, the visible ceiling)
-        for (var row = this.DRAW_BOARD_TOP_DRAWABLE_ROW; row < game.BOARD_ROWS; row++) {
+        for (var row = this.DRAW_BOARD_TOP_DRAWABLE_ROW; row < gameConst.BOARD_ROWS; row++) {
             y = this.DRAW_BOARD_Y + ((row - this.DRAW_BOARD_TOP_DRAWABLE_ROW) * this.BLOCK_WIDTH);
 
-            for (var col = 0; col < game.BOARD_COLS; col++) {
+            for (var col = 0; col < gameConst.BOARD_COLS; col++) {
 
                 x = this.DRAW_BOARD_X + (col * this.BLOCK_WIDTH);
 
@@ -146,9 +146,9 @@ var draw = {
 
         //draw losing limit line (under row[3])
         this.foregroundContext.beginPath();
-        y = this.DRAW_BOARD_Y + ((game.GAME_OVER_ROW + 1) * this.BLOCK_WIDTH);
+        y = this.DRAW_BOARD_Y + ((gameConst.GAME_OVER_ROW + 1) * this.BLOCK_WIDTH);
         this.foregroundContext.moveTo(this.DRAW_BOARD_X, y);
-        x = this.DRAW_BOARD_X + (game.BOARD_COLS * this.BLOCK_WIDTH);
+        x = this.DRAW_BOARD_X + (gameConst.BOARD_COLS * this.BLOCK_WIDTH);
         this.foregroundContext.lineTo(x, y);
         this.foregroundContext.lineWidth = 4;
         this.foregroundContext.strokeStyle = '#00ff00';

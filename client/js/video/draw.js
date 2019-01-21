@@ -226,7 +226,7 @@ var draw = {
 
     drawTime : function (){
         //draw time
-        var truncTime = Number.parseFloat(game.time).toFixed(2);
+        var truncTime = Number.parseFloat(timing.time).toFixed(2);
 
         $('#time').html(truncTime);
     },

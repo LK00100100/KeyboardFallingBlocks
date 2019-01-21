@@ -8,18 +8,10 @@
 
 var game = {
 
-    //TIMING INFO
-    FPS: 30,                //30 frames per second
-    currentTick: 0,
-    tickTimePieceDrop: 0,	//drop timer counter
-    pieceDropTick: 0,		//automatic dropping time threshold.
-    animationInterval: -1,
-    animationTimeout: -1, 	// 100 = 100 milliseconds or 10 times a second, i set it to 30 SPF
-
     //GAME INFO
     linesToWin: -1,
-    time: 0,
     holdPiece: null,
+
     //{col, rotate, hold, pause}
     commands: [],				//stores player commands. only processed during the "waiting command" stage
     currentPiece: null,
@@ -40,20 +32,18 @@ var game = {
 
         board.initBoard();
 
-        //equals "seconds per frame"
-        game.animationTimeout = 1000 / game.FPS;
+        timing.init();
     },
 
     //reset all game variables to square-0.
     resetGame: function () {
 
         //reset stats
-        game.time = 0;
-        game.currentTick = 0;
         game.commands = [];
         game.newHighScore = false;
 
         stats.resetStats();
+        timing.resetTiming();
 
         board.clearBoard();
 
@@ -89,7 +79,6 @@ var game = {
 
         game.running = true;
 
-
         draw.drawingLoop();
     },
 
@@ -97,52 +86,22 @@ var game = {
      * A control loop that runs at a fixed period of time
      * this does the game calculations
      */
-    animationLoop: function () {
-        //note: careful when you use the "this" keyword in this method.
+    calculationLoop: function () {
+        //note: careful when you use the "this" keyword in this method. 'this' is global.
 
         if (!game.running)
             return;
 
-        game.currentTick++;
+        timing.currentTick++;
 
-        //update timer
-        //game.time += (game.currentTick / 30);
-        if (game.currentTick % 30 == 0){
+        var frameSecond = (1 / timing.FPS);
 
-           // game.time++;
-        }
-
-        var frameSecond = (1 / game.FPS);
-
-        game.setTimer(frameSecond);
+        timing.setTimer(frameSecond);
 
         //process user keyboard inputs (in order)
         for (var i = 0; i < game.commands.length; i++) {
             game.processInput(game.commands.shift());
         }
-
-        //TODO we can remove this variable if we just check commands length and move this to the top.
-        //if we need to play one movement sound.
-        //if(game.movementButtonWasPressed) {
-
-        //TODO implement sound
-        //if (Settings.soundEnabled)
-        //	Assets.beep.play(1);
-
-        //game.movementButtonWasPressed = false;
-        //}
-
-    },
-
-    setTimer : function (deltaTime) {
-
-        if(game.time == 9999.99)
-            return;
-
-        game.time += deltaTime;
-
-        if(game.time > 9999.99)
-            game.time = 9999.99;
 
     },
 
@@ -224,7 +183,7 @@ var game = {
      */
     setPieceInStartPosition: function (tempPiece) {
 
-        //TODO move this to piece.js
+        //TODO move this to piece.js?
         tempPiece.row = gameConst.START_ROW;
         tempPiece.col = gameConst.START_COL;
         tempPiece.setId(1);
@@ -317,11 +276,11 @@ var game = {
             //cleared enough lines
             if (stats.linesCleared >= game.linesToWin) {
 
-                highscore.updateHighScore(game.time);
+                highscore.updateHighScore(timing.time);
                 highscore.printScores();
 
                 //new high score
-                if(highscore.scores[0] == game.time){
+                if(highscore.scores[0] == timing.time){
                     game.newHighScore = true;
                 }
 

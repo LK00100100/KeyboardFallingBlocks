@@ -188,9 +188,11 @@ var keyGame = {
 };
 
 //init isPressed
-for(var row = 0; row < keyGame.keyOrder.length; row++){
-    for(var col = 0; col < keyGame.keyOrder[0].length; col++){
-        var key = keyGame.keyOrder[row][col];
-        keyGame["isPressed"][key] = false;
+(function() {
+    for(var row = 0; row < keyGame.keyOrder.length; row++){
+        for(var col = 0; col < keyGame.keyOrder[0].length; col++){
+            var key = keyGame.keyOrder[row][col];
+            keyGame["isPressed"][key] = false;
+        }
     }
-}
+})();

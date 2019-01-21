@@ -22,8 +22,7 @@ var singleplayer = {
         game.resetGame();
 
         //animate the sprites, update date; 30FPS
-        game.animationLoop();
-        game.animationInterval = setInterval(game.animationLoop, game.animationTimeout);
+        timing.animationInterval = setInterval(game.calculationLoop, timing.animationTimeout);
 
         //then draw the sprites (whenever you can)
         game.startGame();
@@ -33,7 +32,7 @@ var singleplayer = {
     endGame: function () {
         game.running = false;
 
-        clearInterval(game.animationInterval);
+        clearInterval(timing.animationInterval);
 
         var highScoreText = "";
         var score;

@@ -33,6 +33,8 @@ var game = {
         board.initBoard();
 
         timing.init();
+
+        draw.drawingLoop();
     },
 
     //reset all game variables to square-0.
@@ -79,7 +81,6 @@ var game = {
 
         game.running = true;
 
-        draw.drawingLoop();
     },
 
     /**

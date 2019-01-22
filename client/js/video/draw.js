@@ -81,14 +81,9 @@ var draw = {
             this.drawMessageBox();
         }
 
-        //draw score
-        //TODO score?
-
         // Call the drawing loop for the next frame using request animation frame
-        if (game.running) {
-            requestAnimationFrame(draw.drawingLoop);
-        }
-
+        requestAnimationFrame(draw.drawingLoop);
+        
     },
 
     drawBoard : function () {

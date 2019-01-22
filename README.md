@@ -1,6 +1,8 @@
 # Keyboard Falling Blocks
 A overly complicated game of Tetris for your browser using your entire keyboard.
 
+If you'd like to contribute, check the wiki first.
+
 Play it here:
 https://lk00100100.github.io/KeyboardFallingBlocks/client/index.html
 

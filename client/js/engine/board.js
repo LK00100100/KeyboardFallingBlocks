@@ -226,7 +226,7 @@ var board = {
     generateGhostPiece : function() {
 
         if(settings.enableGhost == false)
-            return;
+            return null;
 
         //clone ghost piece
         game.ghostPiece = $.extend({}, game.currentPiece);

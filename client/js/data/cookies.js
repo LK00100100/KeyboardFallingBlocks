@@ -70,7 +70,7 @@ var cookies = {
         else
             settings.pieceGenerator = pieceGeneratorBag;
 
-        if(this.dict["highScore"] != null){
+        if(this.dict["highScore"] != ""){
 
             var scores = this.dict["highScore"].split(",");
 

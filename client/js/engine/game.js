@@ -20,7 +20,6 @@ var game = {
 
     nextPieces: [],
     justPressedHold: false,		//to ensure that we don't press hold infinitely. only once per drop.
-    gameOver: false,
     newHighScore : false,       //if a new high score has been placed, highlight it red.
 
     // Start pre-loading assets.
@@ -74,6 +73,7 @@ var game = {
         //put the currentPiece on the board
         board.placePiece(game.currentPiece, game.currentPiece.row, game.currentPiece.col);
 
+        game.ghostPiece = null;
         board.generateGhostPiece();
 
         draw.hideMessageBox();

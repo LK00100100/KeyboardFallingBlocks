@@ -49,6 +49,8 @@ var game = {
 
         board.clearBoard();
 
+        settings.pieceGenerator.reset();
+
         //get the current piece and a copy.
         game.currentPieceOriginal = pieceS;
         while(game.currentPieceOriginal.pieceType == "PieceS" || game.currentPieceOriginal.pieceType == "PieceZ")
@@ -59,7 +61,6 @@ var game = {
 
         //get the next pieces
         var pieceTemp;
-        settings.pieceGenerator.reset();
         game.nextPieces = [];
         for (var i = 0; i < settings.piecePreviewCount; i++) {
             pieceTemp = settings.pieceGenerator.generateRandomPiece();

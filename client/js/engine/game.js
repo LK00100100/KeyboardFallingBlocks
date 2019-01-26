@@ -59,6 +59,7 @@ var game = {
 
         //get the next pieces
         var pieceTemp;
+        settings.pieceGenerator.reset();
         game.nextPieces = [];
         for (var i = 0; i < settings.piecePreviewCount; i++) {
             pieceTemp = settings.pieceGenerator.generateRandomPiece();

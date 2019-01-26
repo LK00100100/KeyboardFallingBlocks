@@ -8,19 +8,22 @@
 
 var pieceGeneratorBag = {
 
-    name : "14-bag",
+    name : "7-bag",
     pieces: [pieceI, pieceJ, pieceL, pieceO, pieceS, pieceT, pieceZ],
     bag : [],
-    MIN_SIZE : 14,
 
     generateRandomPiece: function () {
 
-        while(this.bag.length < this.MIN_SIZE){
+        if(this.bag.length == 0){
             this.fillBag();
         }
 
         return this.bag.pop();
 
+    },
+
+    reset : function(){
+        this.bag = [];
     },
 
     //take the 7 pieces from the original "pieces" and place them randomly

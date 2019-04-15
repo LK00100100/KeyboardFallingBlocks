@@ -9,6 +9,8 @@ https://lk00100100.github.io/KeyboardFallingBlocks/client/index.html
 Author: L. Keh LK00100100@gmail.com<br />
 Github: https://github.com/00100100
 
+![alt text](https://lk00100100.github.io/KeyboardFallingBlocks/client/demo.gif "Demo")
+
 Uses the game framework provided by Pro HTML5 Games.<br />
 Author: Aditya Ravi Shankar<br />
 Github: https://github.com/adityaravishankar<br />

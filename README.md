@@ -3,7 +3,7 @@
 ![RepoSize](https://img.shields.io/github/repo-size/LK00100100/KeyboardFallingBlocks.svg)
 ![GitHub stars](https://img.shields.io/github/stars/LK00100100/KeyboardFallingBlocks.svg?style=social)
 
-A overly complicated game of Tetris for your browser using your entire keyboard.
+A overly complicated game of Tetris for your browser using your entire keyboard. This was written with an older style of Javascript.
 
 If you'd like to contribute, check the wiki first.
 

@@ -10,6 +10,9 @@ If you'd like to contribute, check the wiki first.
 Play it here:
 https://lk00100100.github.io/KeyboardFallingBlocks/client/index.html
 
+or on itch.io
+https://lk00100100.itch.io/keyboard-falling-blocks
+
 Author: L. Keh LK00100100@gmail.com<br />
 Github: https://github.com/00100100
 

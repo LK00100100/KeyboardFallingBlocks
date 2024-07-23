@@ -13,7 +13,6 @@ https://lk00100100.github.io/KeyboardFallingBlocks/client/index.html
 or on itch.io
 https://lk00100100.itch.io/keyboard-falling-blocks
 
-Author: L. Keh LK00100100@gmail.com<br />
 Github: https://github.com/00100100
 
 ![alt text](https://lk00100100.github.io/KeyboardFallingBlocks/client/demo.gif "Demo")
